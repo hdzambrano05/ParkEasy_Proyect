@@ -1,0 +1,86 @@
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Perfil de Usuario</h2>
+        </div>
+        <div class="card-body position-relative">
+            <div *ngIf="loading" class="text-center">
+                <div class="spinner-border" role="status"></div>
+                <p>Cargando...</p>
+            </div>
+            <div *ngIf="error" class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            <div *ngIf="user">
+                <div class="text-center mb-4">
+                    <h4 class="font-weight-bold">{{ user.full_name }}</h4>
+                    <p class="text-muted">{{ '\@' }}{{ user.username }}</p>
+                    <p class="font-italic">{{ user.email }}</p>
+                    <button (click)="enableEdit()" class="btn btn-link position-absolute"
+                        style="top: 15px; right: 15px;">
+                        <i class="bi bi-pencil" style="font-size: 1.5rem; color: #007bff;"></i>
+                    </button>
+                </div>
+                <hr>
+                <form *ngIf="isEditing" (ngSubmit)="updateUser()" novalidate>
+                    <div class="form-group">
+                        <label for="fullName">Nombre Completo</label>
+                        <input type="text" id="fullName" class="form-control" [(ngModel)]="user.full_name"
+                            name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+                    <button type="button" class="btn btn-warning mt-3 ml-2" (click)="cancelEdit()">Cancelar</button>
+                </form>
+                <div *ngIf="!isEditing">
+                    <h5 class="mt-4 mb-3">Vehículos Asociados</h5>
+                    <ul class="list-group">
+                        <li *ngFor="let vehicle of vehicles" class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Placa:</strong> {{ vehicle.license_plate }}<br>
+                                    <strong>Tipo:</strong> {{ vehicle.vehicle_type }}<br>
+                                    <strong>Color:</strong> {{ vehicle.color }}
+                                </div>
+                                <div>
+                                    <button (click)="enableEditVehicle(vehicle)" class="btn btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Formulario para editar vehículo justo debajo del vehículo -->
+                            <form *ngIf="isEditingVehicle && editingVehicle.vehicle_id === vehicle.vehicle_id"
+                                (ngSubmit)="editVehicle()" novalidate class="mt-3">
+                                <h5 class="mt-4 mb-3">Editar Vehículo</h5>
+                                <div class="form-group">
+                                    <label for="licensePlate">Placa</label>
+                                    <input type="text" id="licensePlate" class="form-control"
+                                        [(ngModel)]="editingVehicle.license_plate" name="licensePlate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicleType">Tipo</label>
+                                    <input type="text" id="vehicleType" class="form-control"
+                                        [(ngModel)]="editingVehicle.vehicle_type" name="vehicleType" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="color">Color</label>
+                                    <input type="text" id="color" class="form-control"
+                                        [(ngModel)]="editingVehicle.color" name="color" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3">Actualizar Vehículo</button>
+                                <button type="button" class="btn btn-warning mt-3 ml-2"
+                                    (click)="cancelEditVehicle()">Cancelar</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

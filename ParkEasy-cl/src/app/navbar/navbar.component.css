@@ -1,0 +1,46 @@
+/* Ajusta el diseño del navbar */
+.navbar {
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease; /* Transición de color de fondo */
+}
+
+.navbar-brand i {
+  color: #007bff;
+}
+
+.navbar-nav .nav-link {
+  font-size: 16px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0056b3;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block; /* Muestra el dropdown al hacer hover */
+}
+
+.dropdown-menu {
+  border-radius: 0.5rem; /* Esquinas redondeadas */
+}
+
+.dropdown-item {
+  cursor: pointer; /* Cambia el cursor a mano */
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Color de fondo en hover */
+}
+
+.navbar-collapse.show {
+  transition: all 0.3s ease-in-out; /* Transición suave al mostrar el menú */
+}
+
+.navbar-toggler {
+  border-color: transparent; /* Oculta el borde del botón */
+}
+
+.navbar-toggler:focus {
+  outline: none; /* Elimina el borde de enfoque */
+  box-shadow: none; /* Elimina la sombra del botón */
+}

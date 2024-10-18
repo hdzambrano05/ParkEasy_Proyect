@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "1004232350",
+    "database": "ParkEasy",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":"5432"
+  },
+  "test": {
+    "username": "postgres ",
+    "password": "1004232350",
+    "database": "ejemplo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":"5432"
+  },
+  "production": {
+    "username": "postgres ",
+    "password": "1004232350",
+    "database": "ejemplo",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port":"5432"
+  }
+}
+
+

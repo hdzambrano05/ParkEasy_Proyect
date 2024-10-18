@@ -1,0 +1,12 @@
+.container {
+    margin-top: 100px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .btn-warning {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+  }

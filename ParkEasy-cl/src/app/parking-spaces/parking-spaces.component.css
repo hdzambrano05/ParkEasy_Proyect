@@ -1,0 +1,168 @@
+/* Estilos generales */
+
+.container {
+    max-width: 1200px;
+    padding: 10px;
+  }
+  
+  h2, h4 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+ /* Tarjetas de espacios */
+.card {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border-radius: 10px;
+    color: #fff; /* Texto en blanco para mayor legibilidad */
+  }
+  
+  /* Espacios disponibles (libres) */
+  .card.available {
+    background-color: #28a745; /* Verde para disponibles */
+    border-color: #28a745;
+  }
+  
+  /* Espacios ocupados */
+  .card.occupied {
+    background-color: #dc3545; /* Rojo para ocupados */
+    border-color: #dc3545;
+  }
+  
+  /* Hover para hacer que las tarjetas crezcan un poco */
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Ajuste de texto para la disponibilidad */
+  .card p {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* Centrar títulos de espacios */
+  h4 {
+    text-align: center;
+  }
+  
+  
+  
+  /* Layout para las tarjetas de los espacios */
+  .d-flex.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Alertas */
+  .alert {
+    margin-top: 20px;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+  }
+  
+  /* Modales */
+  .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .modal-title {
+    font-weight: bold;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .btn-close {
+    color: #fff;
+    opacity: 1;
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Tamaño del modal */
+  .modal-dialog {
+    max-width: 500px;
+  }
+  
+  /* Estilos adicionales */
+  .card-body h5 {
+    font-size: 22px;
+    color: #000;
+  }
+  
+  button.btn-primary, button.btn-success {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  button.btn-primary:hover, button.btn-success:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+  }
+  
+  button.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  /* Estilos para diferenciar los espacios */
+  .col {
+    margin-bottom: 30px;
+  }
+  
+
+  .custom-button {
+    background-color: #007bff; /* Color azul */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    margin-top: 20px; 
+  }
+  
+  .custom-button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+  }
+
+  

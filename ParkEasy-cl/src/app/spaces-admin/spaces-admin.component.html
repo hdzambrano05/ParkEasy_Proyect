@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <!-- Título de la página -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4 text-primary">Gestión de Espacios</h1>
+        <!-- Botón para agregar un espacio en la parte superior -->
+        <button  class="btn btn-primary btn-lg active" role="button" aria-pressed="true" (click)="addSpace()">Agregar Espacio</button>
+    </div>
+
+    <div class="row">
+        <!-- Sección de espacios de los Grupos A y B uno al lado del otro -->
+        <div class="col-md-6">
+            <h2 class="text-secondary">Espacios A</h2>
+            <hr>
+            <div class="row">
+                <div class="col-4 col-md-3 mb-4" *ngFor="let space of spacesA" (click)="viewSpace(space)">
+                    <div class="card h-100 border rounded shadow-sm card-hover"
+                        [ngClass]="{'bg-danger text-white': space.is_occupied, 'bg-success text-white': !space.is_occupied}">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div class="text-center">
+                                <h5 class="card-title">{{ space.space_number }}</h5>
+                                <p class="card-text">{{ space.space_type }}</p>
+                                <p class="card-text">
+                                    <strong>{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="text-secondary">Espacios B</h2>
+            <hr>
+            <div class="row">
+                <div class="col-4 col-md-3 mb-4" *ngFor="let space of spacesB" (click)="viewSpace(space)">
+                    <div class="card h-100 border rounded shadow-sm card-hover"
+                        [ngClass]="{'bg-danger text-white': space.is_occupied, 'bg-success text-white': !space.is_occupied}">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center p-3">
+                            <div class="text-center">
+                                <h5 class="card-title">{{ space.space_number }}</h5>
+                                <p class="card-text">{{ space.space_type }}</p>
+                                <p class="card-text">
+                                    <strong>{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver los detalles del espacio -->
+    <div class="modal fade" id="spaceDetailModal" tabindex="-1" aria-labelledby="spaceDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="spaceDetailModalLabel">Detalles del Espacio {{
+                        selectedSpace?.space_number }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="selectedSpace">
+                        <p><strong>Número de Espacio:</strong> {{ selectedSpace.space_number }}</p>
+                        <p><strong>Tipo de Espacio:</strong> {{ selectedSpace.space_type }}</p>
+                        <p><strong>Estado:</strong> {{ selectedSpace.is_occupied ? 'Ocupado' : 'Disponible' }}</p>
+                        <p><strong>Descripción:</strong> {{ selectedSpace.location }}</p>
+                    </div>
+                    <button class="btn btn-warning w-100 mb-2" (click)="editSpace()">Editar</button>
+                    <button class="btn btn-danger w-100" (click)="deleteSpace()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

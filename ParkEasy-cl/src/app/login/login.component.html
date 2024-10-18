@@ -1,0 +1,47 @@
+<div class="login-container container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">
+                        <i class="bi bi-lock"></i> Login
+                    </h4>
+                    <form (ngSubmit)="onSubmit()">
+                        <div class="form-group mb-3">
+                            <label for="identifier" class="form-label">
+                                <i class="bi bi-person-fill"></i> Email o Username:
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" id="identifier" name="identifier" [(ngModel)]="identifier" required
+                                    class="form-control" placeholder="Ingrese su email o username" />
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock-fill"></i> Password:
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                <input type="password" id="password" name="password" [(ngModel)]="password" required
+                                    class="form-control" placeholder="Ingrese su contraseña" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-arrow-right-circle"></i> Login
+                            </button>
+                        </div>
+                        <!-- Mensaje de error -->
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                            {{ errorMessage }}
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

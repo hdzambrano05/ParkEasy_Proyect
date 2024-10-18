@@ -1,0 +1,34 @@
+/* reservation-list.component.css */
+.table {
+    background-color: #f8f9fa; /* Fondo claro para la tabla */
+  }
+  
+  .table th {
+    background-color: #007bff; /* Azul primario para los encabezados */
+    color: white; /* Color del texto en blanco */
+  }
+  
+  .table td {
+    vertical-align: middle; /* Centrar el contenido verticalmente */
+  }
+  
+  .text-primary {
+    color: #007bff; /* Azul primario para enlaces */
+  }
+  
+  .text-warning {
+    color: #ffc107; /* Amarillo para el icono de editar */
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Rojo para el icono de eliminar */
+  }
+  
+  a {
+    text-decoration: none; /* Sin subrayado en los enlaces */
+  }
+  
+  a:hover {
+    opacity: 0.8; /* Efecto de hover para los enlaces */
+  }
+  

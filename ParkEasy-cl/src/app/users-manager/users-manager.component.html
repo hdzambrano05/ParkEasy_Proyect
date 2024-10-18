@@ -1,0 +1,134 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Gestión de Usuarios</h2>
+
+    <!-- Botón para mostrar el modal de añadir usuario -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#userModal" (click)="resetForm()">
+        <i class="bi bi-plus-circle"></i> Añadir Usuario
+    </button>
+
+    <!-- Barra de Búsqueda y Filtro -->
+    <div class="input-group mb-4">
+        <input type="text" class="form-control" placeholder="Buscar usuario por nombre" [(ngModel)]="searchTerm"
+            (input)="filterUsers()" aria-label="Buscar">
+        <button class="btn btn-info" type="button" (click)="toggleFilter()">
+            <i class="bi bi-funnel"></i> Filtrar
+        </button>
+        <button class="btn btn-secondary" type="button" (click)="toggleView()">
+            <i class="bi" [ngClass]="isListView ? 'bi-grid' : 'bi-list'"></i> {{ isListView ? 'Ver como Tarjetas' : 'Ver como Lista' }}
+        </button>
+    </div>
+
+    <!-- Opciones de Filtro -->
+    <div *ngIf="showFilterOptions" class="mb-4">
+        <div class="form-group">
+            <label for="filterRole">Filtrar por Rol</label>
+            <select id="filterRole" [(ngModel)]="filterRole" class="form-control" (change)="filterUsers()">
+                <option value="">Todos</option>
+                <option value="1">Administrador</option>
+                <option value="2">Usuario</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Vista de Tarjetas -->
+    <div *ngIf="!isListView" class="row mt-4">
+        <div class="col-md-4 mb-4" *ngFor="let user of filteredUsers">
+            <div class="card shadow-sm rounded hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="card-text">
+                        <strong>Nombre Completo:</strong> {{ user.full_name }} <br>
+                        <strong>Email:</strong> {{ user.email }} <br>
+                        <strong>Rol:</strong> {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario' : 'Desconocido') }} <br>
+                        <strong>Fecha de Creación:</strong> {{ user.created_at | date: 'dd/MM/yyyy' }}
+                    </p>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-warning" (click)="editUser(user)" data-bs-toggle="modal" data-bs-target="#userModal">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteUser(user.user_id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vista de Lista -->
+    <div *ngIf="isListView" class="list-group mt-4">
+        <div class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of filteredUsers">
+            <div>
+                <h5 class="mb-1">{{ user.username }}</h5>
+                <p class="mb-1">
+                    <strong>Nombre Completo:</strong> {{ user.full_name }} <br>
+                    <strong>Email:</strong> {{ user.email }} <br>
+                    <strong>Rol:</strong> {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario' : 'Desconocido') }} <br>
+                    <strong>Fecha de Creación:</strong> {{ user.created_at | date: 'dd/MM/yyyy' }}
+                </p>
+            </div>
+            <div>
+                <button class="btn btn-link text-warning" (click)="editUser(user)" data-bs-toggle="modal" data-bs-target="#userModal">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-link text-danger" (click)="deleteUser(user.user_id)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para el Formulario de Usuario -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">{{ selectedUser.user_id ? 'Editar Usuario' : 'Añadir Usuario' }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nombre de Usuario</label>
+                            <input type="text" id="username" class="form-control" [(ngModel)]="selectedUser.username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Nombre Completo</label>
+                            <input type="text" id="full_name" class="form-control" [(ngModel)]="selectedUser.full_name" name="full_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="role_id" class="form-label">Rol</label>
+                            <select id="role_id" class="form-control" [(ngModel)]="selectedUser.role_id" name="role_id">
+                                <option value="1">Administrador</option>
+                                <option value="2">Usuario</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{ selectedUser.user_id ? 'Actualizar Usuario' : 'Crear Usuario' }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilos para el efecto hover */
+    .hover-shadow {
+        transition: box-shadow 0.3s;
+    }
+    .hover-shadow:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    .btn-link {
+        padding: 0;
+        color: inherit;
+        text-decoration: none;
+    }
+    .btn-link:hover {
+        text-decoration: underline;
+    }
+</style>

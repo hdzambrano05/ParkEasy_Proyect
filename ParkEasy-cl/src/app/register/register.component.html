@@ -1,0 +1,81 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">
+                        <i class="bi bi-person-plus-fill me-2"></i>Registrar
+                    </h2>
+                    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="bi bi-person-fill me-1"></i> Nombre de usuario
+                            </label>
+                            <input type="text" id="username" class="form-control rounded-pill shadow-sm"
+                                [(ngModel)]="username" name="username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="bi bi-envelope-fill me-1"></i> Correo electrónico
+                            </label>
+                            <input type="email" id="email" class="form-control rounded-pill shadow-sm"
+                                [(ngModel)]="email" name="email" required
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #emailInput="ngModel"
+                                placeholder="tucorreo&#64;dominio.com">
+
+                            <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>
+                                Ingresa un correo electrónico válido con formato "usuario&#64;dominio.com".
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock-fill me-1"></i> Contraseña
+                            </label>
+                            <input type="password" id="password" class="form-control rounded-pill shadow-sm"
+                                [(ngModel)]="password" name="password" required (input)="validatePasswords()">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">
+                                <i class="bi bi-lock-fill me-1"></i> Confirmar Contraseña
+                            </label>
+                            <input type="password" id="confirmPassword" class="form-control rounded-pill shadow-sm"
+                                [(ngModel)]="confirmPassword" name="confirmPassword" required
+                                (input)="validatePasswords()">
+
+                            <!-- Mensaje de error personalizado si las contraseñas no coinciden -->
+                            <div *ngIf="passwordsMismatch" class="text-danger mt-1">
+                                <i class="bi bi-exclamation-circle-fill me-1"></i>
+                                Las contraseñas no coinciden.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">
+                                <i class="bi bi-person-lines-fill me-1"></i> Nombre completo
+                            </label>
+                            <input type="text" id="full_name" class="form-control rounded-pill shadow-sm"
+                                [(ngModel)]="full_name" name="full_name" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill shadow-sm"
+                            [disabled]="!registerForm.form.valid || passwordsMismatch">
+                            <i class="bi bi-check-circle-fill me-1"></i> Registrar
+                        </button>
+
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+                            <i class="bi bi-exclamation-circle-fill me-1"></i> {{ errorMessage }}
+                        </div>
+
+                        <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+                            <i class="bi bi-check-circle-fill me-1"></i> {{ successMessage }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
