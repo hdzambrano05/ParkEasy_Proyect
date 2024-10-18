@@ -1,109 +1,117 @@
-# 🚗 ParkEasy - Sistema de Gestión de Parqueadero 🚗
+# 🚗 ParkEasy - Parking Management System 🚗
 
-ParkEasy es un sistema de gestión de parqueaderos que permite a los usuarios reservar espacios de estacionamiento de manera eficiente. Este proyecto está construido con **Angular** en el frontend y **Node.js (Express)** en el backend, utilizando **PostgreSQL** como base de datos y **Sequelize** para la interacción con la misma.
+ParkEasy is a parking management system that allows users to efficiently reserve parking spaces. This project is built with **Angular** for the frontend and **Node.js (Express)** for the backend, using **PostgreSQL** as the database and **Sequelize** for database interaction.
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
 ### Frontend (Angular)
-- **Angular 15+**: Framework para aplicaciones web modernas.
-- **Bootstrap 5**: Librería de diseño para un UI responsivo y atractivo.
-- **RxJS**: Manejo de operaciones asíncronas.
-- **Angular Router**: Para la navegación entre componentes.
+- **Angular 15+**: Framework for modern web applications
+- **Bootstrap 5**: Design library for responsive and attractive UI
+- **RxJS**: Handling asynchronous operations
+- **Angular Router**: For component navigation
 
 ### Backend (Node.js + Express)
-- **Node.js**: Entorno de ejecución para el backend.
-- **Express**: Framework minimalista para servidores en Node.js.
-- **Sequelize**: ORM para gestionar la base de datos PostgreSQL.
-- **JWT**: Para la autenticación segura de usuarios.
+- **Node.js**: Runtime environment for the backend
+- **Express**: Minimalist framework for Node.js servers
+- **Sequelize**: ORM for PostgreSQL database management
 
-### Base de Datos
-- **PostgreSQL**: Base de datos relacional utilizada para almacenar usuarios, vehículos, espacios y reservas.
+### Database
+- **PostgreSQL**: Relational database used to store users, vehicles, spaces, and reservations
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-### Usuario
-- Registro y autenticación (Inicio de sesión).
-- Visualización de los espacios disponibles.
-- Reserva de un espacio de parqueo.
-- Consulta de reservas activas y finalizadas.
+### User
+- Registration and authentication (Login)
+- View available spaces
+- Parking space reservation
+- View active and completed reservations
 
-### Administrador
-- Gestión de usuarios y vehículos.
-- Gestión de espacios de estacionamiento (creación, edición, eliminación).
-- Monitoreo de las reservas de estacionamiento.
+### Administrator
+- User and vehicle management
+- Parking space management (creation, editing, deletion)
+- Parking reservation monitoring
 
-## 🛠️ Instalación y Configuración
+## 🛠️ Installation and Setup
 
-### 1. Clonar este repositorio
-
-    ```bash
-        git clone https://github.com/tu-usuario/parkeasy.git
-        cd parkeasy
-
-
-## 🛠️ Instalación y Configuración
-
-### 2. Configurar el Backend (Node.js + Express)
-
-1. Ve a la carpeta `backend`:
-
-    ```bash
-    cd backend
-    ```
-
-2. Instala las dependencias:
-
-    ```bash
-    npm install
-    ```
-
-5. Inicia el servidor:
-
-    ```bash
-    npm 
-    ```
-5. Inicia el servidor:
-
-    ```bash
-    npm 
-    ```
-
-    El servidor debería estar corriendo en `http://localhost:3000`.
-
-### 3. Configurar el Frontend (Angular)
-
-1. Ve a la carpeta `frontend`:
-
-    ```bash
-    cd frontend
-    ```
-
-2. Instala las dependencias:
-
-    ```bash
-    npm install
-    ```
-
-3. Configura las URL del backend en los archivos de entorno `src/environments/environment.ts`:
-
-    ```ts
-    export const environment = {
-      production: false,
-      apiUrl: 'http://localhost:3000'
-    };
-    ```
-
-4. Inicia la aplicación Angular:
-
-    ```bash
-    ng serve
-    ```
-
-    El frontend debería estar corriendo en `http://localhost:4200`.
-
-## 🧪 Pruebas
-
-Puedes ejecutar pruebas unitarias para el frontend utilizando el siguiente comando:
-
+### 1. Clone this repository
 ```bash
-ng test
+git clone https://github.com/your-username/parkeasy.git
+cd parkeasy
+```
+
+### 2. Configure Backend (Node.js + Express)
+1. Go to the `backend` folder:
+```bash
+cd backend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Install Nodemon:
+```bash
+npm install nodemon
+```
+
+4. Start the server:
+```bash
+nodemon
+```
+The server should be running on `http://localhost:3000`.
+
+### 3. Configure Frontend (Angular)
+1. Go to the `frontend` folder:
+```bash
+cd frontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the Angular application:
+```bash
+ng serve
+```
+The frontend should be running on `http://localhost:4200`.
+
+## 🔧 API - Main Endpoints
+- **POST** `/auth/login`: Login
+- **POST** `/auth/register`: User registration
+- **GET** `/spaces`: List all available parking spaces
+- **POST** `/reservations`: Reserve a parking space
+- **PATCH** `/reservations/:id/checkout`: Mark vehicle departure
+- **GET** `/vehicles`: Query registered vehicles
+
+## 📦 Main Dependencies
+
+### Backend (Node.js + Express)
+- **bcryptjs**: For password encryption
+- **Sequelize**: Database ORM
+- **pg**: PostgreSQL connector
+
+### Frontend (Angular)
+- **Bootstrap**: For responsive design
+- **RxJS**: For handling asynchronous events
+- **ngx-bootstrap**: For handling modals and other components
+
+## 🗂️ Project Structure
+```bash
+parkeasy/
+│
+├── backend/         # Backend folder with Express and Node.js
+│   ├── config/      # Database configuration
+│   ├── controllers/ # Route business logic
+│   ├── models/      # Sequelize models
+│   ├── routes/      # API routes
+│   └── server.js    # Backend entry point
+│
+├── frontend/        # Frontend folder with Angular
+│   ├── src/         # Angular application source code
+│   ├── environments # Environment configuration
+│   └── app/         # Application components and services
+└── README.md        # This file
+```
