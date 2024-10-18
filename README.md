@@ -36,9 +36,9 @@ ParkEasy es un sistema de gestión de parqueaderos que permite a los usuarios re
 
 ### 1. Clonar este repositorio
 
-```bash
-git clone https://github.com/tu-usuario/parkeasy.git
-cd parkeasy
+    ```bash
+        git clone https://github.com/tu-usuario/parkeasy.git
+        cd parkeasy
 
 
 ## 🛠️ Instalación y Configuración
