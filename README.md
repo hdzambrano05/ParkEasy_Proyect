@@ -35,7 +35,7 @@ ParkEasy is a parking management system that allows users to efficiently reserve
 
 ### 1. Clone this repository
 ```bash
-git clone https://github.com/your-username/parkeasy.git
+git clone https://github.com/hdzambrano05/ParkEasy_Proyect.git
 cd parkeasy
 ```
 
