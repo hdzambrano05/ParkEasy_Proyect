@@ -19,7 +19,7 @@ export class AdminReservasComponent implements OnInit {
 
   loadReservations(): void {
     this.AdminReservationService.getReservations().subscribe((reservations) => {
-      console.log('Reservas recibidas:', reservations); // Añadir este log
+      console.log('Reservas recibidas:', reservations); 
   
       // Filtrar las reservas por estado
       this.pendingReservations = reservations.filter(reservation => reservation.status === 'pending');

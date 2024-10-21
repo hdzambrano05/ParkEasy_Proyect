@@ -93,8 +93,41 @@ module.exports = {
                     }
                 ]
             })
-            .then((reservations) => res.status(200).send(reservations))
-            .catch((error) => res.status(400).send(error));
+            .then((reservations) => {
+                // Calcular la tarifa para cada reserva
+                const reservationsWithFees = reservations.map(reservation => {
+                    const entryTime = moment(reservation.reservation_start);
+                    const exitTime = moment(reservation.reservation_end); // Hora actual
+                    const duration = exitTime.diff(entryTime, 'hours', true); // Duración en horas (decimal)
+
+                    let fee = 0;
+
+                    // Calcular tarifa según el tipo de vehículo
+                    const vehicleType = reservation.vehicles_model.dataValues.vehicle_type; // Cambia a reservation.vehicles_model.dataValues
+                    if (vehicleType === 'CARRO') {
+                        fee = 2000; // Tarifa mínima para carro
+                        if (duration > 1) {
+                            fee += Math.ceil(duration - 1) * 1000; // Horas adicionales
+                        }
+                    } else if (vehicleType === 'MOTO') {
+                        fee = 1500; // Tarifa mínima para moto
+                        if (duration > 1) {
+                            fee += Math.ceil(duration - 1) * 500; // Horas adicionales
+                        }
+                    }
+
+                    // Añadir la tarifa calculada a la reserva
+                    return { ...reservation.dataValues, fee }; // Crear un nuevo objeto con la reserva y la tarifa
+                });
+
+                // Enviar la respuesta con todas las reservas y sus tarifas
+                return res.status(200).json(reservationsWithFees);
+            })
+            .catch((error) => {
+                console.error('Error al listar las reservas:', error);
+                return res.status(500).json({ message: 'Error interno del servidor.' });
+            });
+            
     },
 
     getById(req, res) {

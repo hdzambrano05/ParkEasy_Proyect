@@ -11,7 +11,7 @@ export class AdminReservationService {
   constructor(private http: HttpClient) {}
 
   getReservations(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`); // Asegúrate de incluir la relación del vehículo
+    return this.http.get<any[]>(`${this.apiUrl}/full`); 
   }
 
   updateReservation(id: number, updatedData: any): Observable<any> {

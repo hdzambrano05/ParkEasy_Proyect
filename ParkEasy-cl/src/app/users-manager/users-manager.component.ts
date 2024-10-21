@@ -21,6 +21,7 @@ export class UsersManagerComponent implements OnInit {
   selectedUser: User = {
     user_id: 0,
     username: '',
+    password: '',
     full_name: '',
     email: '',
     role_id: 2,
@@ -94,12 +95,18 @@ export class UsersManagerComponent implements OnInit {
       });
     }
   }
+  isPasswordVisible = false;
+
+  togglePasswordVisibility() {
+      this.isPasswordVisible = !this.isPasswordVisible;
+  }
 
   // Resetear el formulario a sus valores iniciales
   resetForm(): void {
     this.selectedUser = {
       user_id: 0,
       username: '',
+      password: '',
       full_name: '',
       email: '',
       role_id: 2, // Valor por defecto como usuario
