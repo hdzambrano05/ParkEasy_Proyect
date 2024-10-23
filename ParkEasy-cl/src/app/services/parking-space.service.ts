@@ -57,6 +57,7 @@ export class ParkingSpaceService {
   markExit(reservationId: number): Observable<any> {
     return this.http.put<any>(`${this.apiUrlReservations}/exit/${reservationId}`, {});
   }
+  
   // Agregar un nuevo vehículo
   addVehicle(vehicleData: any): Observable<any> {
     return this.http.post<any>(this.apiUrlVehicles, vehicleData).pipe(

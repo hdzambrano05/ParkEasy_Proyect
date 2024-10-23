@@ -6,6 +6,8 @@ const usersController = require('../controllers').usersController;
 
 
 router.post('/login', usersController.login);
+router.post('/verify-user', usersController.verifyUser);
+router.post('/change-password', usersController.changePassword);
 router.get('/', usersController.list);
 router.get('/full', usersController.listFull);
 router.get('/info/:id', usersController.UserInfo); 

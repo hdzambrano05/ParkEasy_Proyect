@@ -3,7 +3,9 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="display-4 text-primary">Gestión de Espacios</h1>
         <!-- Botón para agregar un espacio en la parte superior -->
-        <button  class="btn btn-primary btn-lg active" role="button" aria-pressed="true" (click)="addSpace()">Agregar Espacio</button>
+        <button class="btn btn-primary btn-lg active" role="button" aria-pressed="true" (click)="openCreateModal()">
+            Agregar Espacio
+        </button>
     </div>
 
     <div class="row">
@@ -71,6 +73,35 @@
                     </div>
                     <button class="btn btn-warning w-100 mb-2" (click)="editSpace()">Editar</button>
                     <button class="btn btn-danger w-100" (click)="deleteSpace()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="createSpaceModal" tabindex="-1" aria-labelledby="createSpaceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSpaceModalLabel">Crear Espacio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario para crear espacio -->
+                    <form (ngSubmit)="createSpace()">
+                        <div class="mb-3">
+                            <label for="spaceNumber" class="form-label">Número de Espacio</label>
+                            <input type="text" id="spaceNumber" [(ngModel)]="newSpace.space_number" name="spaceNumber"
+                                required class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="space_type" class="form-label">Tipo de Espacio</label>
+                            <input type="text" id="space_type" [(ngModel)]="newSpace.space_type" name="space_type"
+                                required class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear Espacio</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr'; 
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,7 @@ import { AdminReservasComponent } from './admin-reservas/admin-reservas.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersManagerComponent } from './users-manager/users-manager.component';
 import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
     AdminReservasComponent,
     DashboardComponent,
     UsersManagerComponent,
-    SpacesAdminComponent
+    SpacesAdminComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
     ToastrModule.forRoot(),
     FormsModule,
     HttpClientModule,
-     // Cambia aquí para usar NgChartsModule
+    ReactiveFormsModule,
+     
   ],
   providers: [],
   bootstrap: [AppComponent]

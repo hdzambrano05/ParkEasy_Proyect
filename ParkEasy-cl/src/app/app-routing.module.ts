@@ -14,6 +14,7 @@ import { AdminReservasComponent } from './admin-reservas/admin-reservas.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersManagerComponent } from './users-manager/users-manager.component';
 import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 const routes: Routes = [
 
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+
+  {
+    path : 'forget_password',
+    component: ForgetPasswordComponent
   },
 
   {
@@ -75,9 +81,9 @@ const routes: Routes = [
     data: { role: 1 } // Sólo accesible para administradores
   },
 
- 
- // Redirige a la página de inicio para cualquier ruta no encontrada
- {
+
+  // Redirige a la página de inicio para cualquier ruta no encontrada
+  {
     path: '**',
     redirectTo: ''
   },

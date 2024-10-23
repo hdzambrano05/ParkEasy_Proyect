@@ -44,7 +44,17 @@ export class AuthService {
     const ruta = `${this.apiUrl}/users/`;
     return this.http.post(ruta, { username, email, password, full_name }); // Cambiado a fullName
   }
-  
+
+  // Método para verificar si el usuario existe
+  verifyUser(emailOrUsername: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/verify-user`, { emailOrUsername });
+  }
+
+  // Método para cambiar la contraseña
+  changePassword(emailOrUsername: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/change-password`, { emailOrUsername, newPassword });
+  }
+
 
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();

@@ -16,6 +16,15 @@ export class SpacesAdminComponent implements OnInit {
   spacesB: ParkingSpace[] = [];
   selectedSpace: ParkingSpace | null = null;
 
+
+  newSpace: ParkingSpace = {
+    space_id: 0,
+    space_number: '',
+    is_occupied: false,
+    space_type: '',
+    location: '',
+  };
+
   constructor(private parkingSpaceService: ParkingSpaceService) { }
 
   ngOnInit(): void {
@@ -58,6 +67,16 @@ export class SpacesAdminComponent implements OnInit {
     }
   }
 
+  openCreateModal(): void {
+    // Reiniciar newSpace antes de abrir el modal
+    const modalElement = document.getElementById('createSpaceModal');
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+    this.closeModal();
+}
+
   // Método para cerrar el modal
   closeModal(): void {
     this.selectedSpace = null; // Opcional: Limpia el espacio seleccionado
@@ -67,8 +86,16 @@ export class SpacesAdminComponent implements OnInit {
       modal?.show();
     }
   }
-  addSpace(): void {
-    console.log('Editar espacio:', this.selectedSpace);
+
+
+  createSpace(): void {
+    this.newSpace.location = this.newSpace.space_number;
+
+    this.parkingSpaceService.createSpace(this.newSpace).subscribe((createdSpace) => {
+      console.log('Espacio creado:', createdSpace);
+      this.loadSpaces(); // Recargar espacios después de crear
+      this.closeModal(); // Cerrar el modal
+    });
   }
 
   // Editar espacio (acción placeholder)

@@ -99,7 +99,7 @@ module.exports = {
                     const entryTime = moment(reservation.reservation_start);
                     const exitTime = moment(reservation.reservation_end); // Hora actual
                     const duration = exitTime.diff(entryTime, 'hours', true); // Duración en horas (decimal)
-
+                    
                     let fee = 0;
 
                     // Calcular tarifa según el tipo de vehículo

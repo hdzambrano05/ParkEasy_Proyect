@@ -9,7 +9,6 @@
                 <th>License</th>
                 <th>Spaces</th>
                 <th>Start Time</th>
-                <th>End Time</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -22,7 +21,6 @@
                 <td>{{ reservation.vehicles_model?.license_plate }}</td>
                 <td>{{ reservation.parking_spaces_model?.space_number }}</td>
                 <td>{{ reservation.reservation_start | date:'short' }}</td>
-                <td>{{ reservation.reservation_end | date:'short' }}</td>
                 <td>{{ reservation.status }}</td>
                 <td>
                     <i class="bi bi-pencil-square text-primary me-3 icon-hover" (click)="openEditModal(reservation)"
