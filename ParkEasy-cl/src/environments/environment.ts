@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
    apiUrl: 'http://localhost:3000'
-     //apiUrl: 'https://70200394e21e9f334623fdd73e5a39ea.serveo.net'
+     //apiUrl: 'https://35e189cd9eb900bd5698939a6ae19133.serveo.net'
 };

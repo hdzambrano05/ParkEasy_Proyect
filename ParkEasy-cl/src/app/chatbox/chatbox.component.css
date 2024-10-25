@@ -1,0 +1,91 @@
+.chatbox {
+    width: 400px;
+    /* Aumenta el ancho del chatbox */
+    max-height: 500px;
+    /* Aumenta la altura máxima del chatbox */
+    border-radius: 0.5rem;
+    /* Bordes redondeados */
+    display: flex;
+    /* Usar flex para la dirección de contenido */
+    flex-direction: column;
+    /* Alinear contenido en columna */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /* Sombra más pronunciada */
+}
+
+.messages {
+    max-height: 350px;
+    /* Altura máxima del área de mensajes */
+    overflow-y: auto;
+    /* Habilita el desplazamiento vertical */
+    flex-grow: 1;
+    /* Permitir que esta área crezca */
+    padding: 10px;
+    /* Espaciado interno */
+}
+
+.message {
+    margin-bottom: 10px;
+    /* Espacio entre los mensajes */
+    padding: 8px 12px;
+    /* Espacio interno para la burbuja */
+    border-radius: 20px;
+    /* Bordes redondeados para la burbuja */
+    position: relative;
+    /* Posición relativa para los pseudo-elementos */
+    max-width: 80%;
+    /* Ancho máximo de la burbuja */
+    word-wrap: break-word;
+    /* Permitir que las palabras largas se dividan */
+}
+
+.from-client {
+    background-color: #d4f1c4;
+    /* Color de fondo para mensajes del cliente */
+    align-self: flex-end;
+    /* Alinear a la derecha */
+    border-top-left-radius: 20px;
+    /* Bordes redondeados */
+    border-top-right-radius: 20px;
+    /* Bordes redondeados */
+}
+
+.from-admin {
+    background-color: #f0f0f0;
+    /* Color de fondo para mensajes del administrador */
+    align-self: flex-start;
+    /* Alinear a la izquierda */
+    border-top-left-radius: 20px;
+    /* Bordes redondeados */
+    border-top-right-radius: 20px;
+    /* Bordes redondeados */
+}
+
+/* Estilos opcionales para crear el efecto de burbuja */
+.btn-link {
+    display: flex;
+    /* Flex para alinear el icono y texto */
+    align-items: center;
+    /* Centrar verticalmente */
+}
+
+ul {
+    padding-left: 0;
+    /* Quitar padding de la lista */
+}
+
+li {
+    font-size: 0.9rem;
+    /* Tamaño de fuente más pequeño para las preguntas */
+    padding: 5px 0;
+    /* Espaciado vertical para las preguntas */
+    cursor: pointer;
+    /* Cambiar cursor al pasar por encima */
+}
+
+li:hover {
+    background-color: #f8f9fa;
+    /* Color de fondo al pasar el mouse */
+    transition: background-color 0.2s;
+    /* Transición suave */
+}

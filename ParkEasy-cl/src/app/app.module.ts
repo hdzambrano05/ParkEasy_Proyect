@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersManagerComponent } from './users-manager/users-manager.component';
 import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     DashboardComponent,
     UsersManagerComponent,
     SpacesAdminComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    ChatboxComponent
   ],
   imports: [
     BrowserModule,

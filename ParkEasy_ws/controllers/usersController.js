@@ -117,7 +117,7 @@ module.exports = {
                 email: req.body.email,
                 password: hashedPassword,
                 full_name: req.body.full_name,
-                role_id: 2
+                role_id: req.body.role_id || 2
             });
 
             return res.status(201).send(newUser);
