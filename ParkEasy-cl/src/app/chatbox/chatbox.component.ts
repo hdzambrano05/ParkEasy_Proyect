@@ -18,7 +18,7 @@ export class ChatboxComponent {
     { question: "¿Cómo puedo hacer una reserva?", answer: "Puede hacer una reserva a través de nuestra página web o llamándonos." },
     { question: "¿Cuánto cuesta el servicio?", answer: "El costo del servicio depende del tipo de vehículo y la duración de la reserva." },
     { question: "¿Aceptan tarjetas de crédito?", answer: "Sí, aceptamos tarjetas de crédito y débito." },
-    { question: "¿Dónde se encuentra el parqueadero?", answer: "Estamos ubicados en la Calle 123 #45-67, Bogotá." },
+    { question: "¿Dónde se encuentra el parqueadero?", answer: "Estamos ubicados en la Calle 123 #45-67, Pasto." },
   ];
 
   constructor() {
@@ -70,5 +70,7 @@ export class ChatboxComponent {
   selectQuestion(question: string) {
     this.newMessage = question; // Rellenar el campo de entrada con la pregunta seleccionada
     this.sendMessage(); // Enviar el mensaje automáticamente
+    this.areQuestionsVisible = false; // Cerrar el menú de preguntas
   }
+
 }

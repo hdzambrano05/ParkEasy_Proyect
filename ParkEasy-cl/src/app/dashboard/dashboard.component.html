@@ -17,97 +17,99 @@
         <div class="col-lg-6 col-md-12 mb-4 d-flex earnings-container">
             <div class="card shadow-lg w-100">
                 <div class="card-header text-center bg-success text-white">
-                    <h5>Ganancias del Mes <i class="bi bi-cash"></i></h5>
+                    <h5 class="mb-0">Ganancias del Mes <i class="bi bi-cash"></i></h5>
                 </div>
                 <div class="card-body text-center">
-                    <h3 class="display-4" *ngIf="totalEarnings > 0">Total: ${{ totalEarnings }}</h3>
-                    <p *ngIf="totalEarnings === 0">No hay ganancias registradas este mes.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <!-- Gráfica de Estadísticas de Reservas -->
-        <div class="col-lg-6 col-md-12 mb-4 d-flex">
-            <div class="card shadow-lg w-100">
-                <div class="card-header text-center bg-warning text-white">
-                    <h5>Reservations Statistics <i class="bi bi-bar-chart-line"></i></h5>
-                </div>
-                <div class="card-body" style="position: relative; height: 40vh;">
-                    <canvas id="myBarChart"></canvas>
+                    <h3 class="display-4">
+                        <span *ngIf="totalEarnings > 0">Total: <strong>$ {{ totalEarnings | number }}</strong>
+                            COP</span>
+                        <span *ngIf="totalEarnings === 0">No hay ganancias registradas este mes.</span>
+                    </h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-12 mb-4 d-flex">
-            <div class="card shadow-lg w-100">
-                <div class="card-header">
-                    <h5 class="mb-0">Top Users <i class="bi bi-person-badge"></i></h5>
+        <div class="row mb-4">
+            <!-- Gráfica de Estadísticas de Reservas -->
+            <div class="col-lg-6 col-md-12 mb-4 d-flex">
+                <div class="card shadow-lg w-100">
+                    <div class="card-header text-center bg-warning text-white">
+                        <h5>Reservations Statistics <i class="bi bi-bar-chart-line"></i></h5>
+                    </div>
+                    <div class="card-body" style="position: relative; height: 40vh;">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Full Name</th>
-                                    <th scope="col">Email</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let user of topUsers; let i = index">
-                                    <td>{{ i + 1 }}</td>
-                                    <td>{{ user.username }}</td>
-                                    <td>{{ user.full_name }}</td>
-                                    <td>{{ user.email }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            </div>
+
+            <div class="col-lg-6 col-md-12 mb-4 d-flex">
+                <div class="card shadow-lg w-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Top Users <i class="bi bi-person-badge"></i></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of topUsers; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.full_name }}</td>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Contenedor para las Tablas -->
-    <div class="row mb-4">
-        <div class="col-lg-6 mb-4 d-flex">
-            <div class="card shadow-lg w-100">
-                <div class="card-header">
-                    <h5 class="mb-0">Recent Reservations <i class="bi bi-clock-history"></i></h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Reservation ID</th>
-                                    <th scope="col">Start Time</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let reservation of recentReservations; let i=index">
-                                    <td>{{ i + 1 }}</td>
-                                    <td>{{ reservation.reservation_id }}</td>
-                                    <td>{{ reservation.reservation_start | date:'short' }}</td>
-                                    <td>
-                                        <span class="badge rounded-pill" [ngClass]="{
+        <!-- Contenedor para las Tablas -->
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4 d-flex">
+                <div class="card shadow-lg w-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">Recent Reservations <i class="bi bi-clock-history"></i></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">N°</th>
+                                        <th scope="col">Reservation ID</th>
+                                        <th scope="col">Start Time</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let reservation of recentReservations; let i=index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ reservation.reservation_id }}</td>
+                                        <td>{{ reservation.reservation_start | date:'short' }}</td>
+                                        <td>
+                                            <span class="badge rounded-pill" [ngClass]="{
                                                 'bg-success': reservation.status === 'completed',
                                                 'bg-warning': reservation.status === 'pending' 
                                             }">
-                                            {{ reservation.status }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                {{ reservation.status }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

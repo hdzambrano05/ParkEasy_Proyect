@@ -1,44 +1,59 @@
-<div class="login-container container mt-5">
+<!-- Login Component -->
+<div class="login-container container">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <!-- Title with Icon -->
                     <h4 class="card-title text-center mb-4">
                         <i class="bi bi-lock"></i> Login
                     </h4>
-                    <form (ngSubmit)="onSubmit()">
-                        <div class="form-group mb-3">
+                    <!-- Login Form -->
+                    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                        <!-- Identifier Field -->
+                        <div class="mb-3">
                             <label for="identifier" class="form-label">
-                                <i class="bi bi-person-fill"></i> Email o Username:
+                                <i class="bi bi-person-fill"></i> Email or Username:
                             </label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
                                 <input type="text" id="identifier" name="identifier" [(ngModel)]="identifier" required
-                                    class="form-control" placeholder="Ingrese su email o username" />
+                                    class="form-control" placeholder="Enter your email or username" />
                             </div>
                         </div>
-                        <div class="form-group mb-3">
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
                             <label for="password" class="form-label">
                                 <i class="bi bi-lock-fill"></i> Password:
                             </label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                <span class="input-group-text">
+                                    <i class="bi bi-key"></i>
+                                </span>
                                 <input type="password" id="password" name="password" [(ngModel)]="password" required
-                                    class="form-control" placeholder="Ingrese su contraseña" />
+                                    class="form-control" placeholder="Enter your password" />
                             </div>
                         </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100">
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
                                 <i class="bi bi-arrow-right-circle"></i> Login
                             </button>
                         </div>
-                        <!-- Mensaje de error -->
-                        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+
+                        <!-- Error Message -->
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
                             {{ errorMessage }}
                         </div>
                     </form>
+
+                    <!-- Forgot Password Link -->
                     <div class="text-center mt-3">
-                        <a routerLink="/forget_password" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                        <a routerLink="/forget_password" class="forgot-password-link">Forgot your password?</a>
                     </div>
                 </div>
             </div>

@@ -132,23 +132,32 @@ module.exports = {
     update(req, res) {
         return users
             .findByPk(req.params.id)
-            .then(user => {
+            .then(async user => {
                 if (!user) {
                     return res.status(404).send({ message: 'User not found' });
                 }
+    
+                const saltRounds = 10;
+                let updatedData = {
+                    username: req.body.username || user.username,
+                    email: req.body.email || user.email,
+                    full_name: req.body.full_name || user.full_name,
+                    role_id: req.body.role_id || user.role_id
+                };
+    
+                // Solo actualizar la contraseña si se proporciona una nueva
+                if (req.body.password) {
+                    updatedData.password = await bcrypt.hash(req.body.password, saltRounds);
+                }
+    
                 return user
-                    .update({
-                        username: req.body.username || user.username,
-                        email: req.body.email || user.email,
-                        password: req.body.password || user.password,
-                        full_name: req.body.full_name || user.full_name,
-                        role_id: req.body.role_id || user.role_id
-                    })
+                    .update(updatedData)
                     .then(() => res.status(200).send(user))
                     .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
     },
+    
 
     // Eliminar usuario por ID
     delete(req, res) {
@@ -241,7 +250,7 @@ module.exports = {
             }
 
             // Hashear la nueva contraseña
-            const hashedPassword = await bcrypt.hash(newPassword,10);
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
             console.log('Hashed Password:', hashedPassword); // Imprimir el hash
             // Actualizar la contraseña del usuario
             user.password = hashedPassword;

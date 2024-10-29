@@ -1,64 +1,141 @@
-/* Ajusta el diseño del navbar */
-.navbar {
-  border-bottom: 1px solid #e0e0e0;
-  transition: background-color 0.3s ease; /* Transición de color de fondo */
+/* Navbar container */
+.custom-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 0;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Navbar brand and icon */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #0056d6;
+  display: flex;
+  align-items: center;
 }
 
 .navbar-brand i {
-  color: #007bff;
+  font-size: 1.5rem;
 }
 
-.navbar-nav .nav-link {
-  font-size: 16px;
+.brand-name {
+  margin-left: 0.3rem;
 }
 
-.navbar-nav .nav-link:hover {
-  color: #0056b3;
+.navbar-toggler {
+  border: none;
 }
 
-.nav-item.dropdown:hover .dropdown-menu {
-  display: block; /* Muestra el dropdown al hacer hover */
+/* Links in navbar */
+.custom-link {
+  color: #495057;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: color 0.3s, background-color 0.3s;
 }
 
-.dropdown-menu {
-  border-radius: 0.5rem; /* Esquinas redondeadas */
+.custom-link:hover,
+.custom-link:focus {
+  color: #ffffff;
+  background-color: #0056d6;
+  text-decoration: none;
+}
+
+/* Dropdown menu */
+.custom-dropdown {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-item {
-  cursor: pointer; /* Cambia el cursor a mano */
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .dropdown-item:hover {
-  background-color: #f8f9fa; /* Color de fondo en hover */
+  background-color: #f1f5f9;
+  color: #0056d6;
 }
 
-.navbar-collapse.show {
-  transition: all 0.3s ease-in-out; /* Transición suave al mostrar el menú */
+.dropdown-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navbar-toggler {
-  border-color: transparent; /* Oculta el borde del botón */
+/* Active and hover styles */
+.nav-item .active {
+  color: #0056d6 !important;
+  font-weight: 600;
 }
 
-.navbar-toggler:focus {
-  outline: none; /* Elimina el borde de enfoque */
-  box-shadow: none; /* Elimina la sombra del botón */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;...");
 }
 
-/* Estilos personalizados para la navbar */
-.navbar {
-  padding: 0.5rem 1rem; /* Ajusta el padding para un mejor espaciado */
+/* Dropdown menu */
+.custom-dropdown {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  /* Inicialmente oculto */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+  /* Eleva el menú para un efecto suave */
+  pointer-events: none;
+  /* Desactiva eventos cuando está oculto */
 }
 
-.nav-link {
-  font-size: 0.9rem; /* Tamaño de fuente más pequeño para móviles */
+/* Aparece el submenú al pasar el cursor */
+.nav-item:hover .custom-dropdown {
+  opacity: 1;
+  /* Hace el submenú visible */
+  transform: translateY(0);
+  /* Vuelve a la posición original */
+  pointer-events: auto;
+  /* Activa eventos */
+}
+.custom-dropdown {
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none; /* Prevent interaction when hidden */
 }
 
-.navbar-toggler {
-  border-color: rgba(0, 0, 0, 0.1); /* Mejora el contraste del botón de menú */
+.dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Allow interaction when shown */
 }
 
+/* Dropdown item hover effects */
 .dropdown-item {
-  font-size: 0.9rem; /* Ajusta el tamaño de fuente en el menú desplegable */
+  padding: 10px 20px;
+  color: #495057;
 }
 
+.dropdown-item:hover {
+  background-color: #e9ecef;
+  color: #0056d6;
+}
+
+/* Divider styling */
+.dropdown-divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .custom-link {
+    padding: 0.4rem 0.9rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+}

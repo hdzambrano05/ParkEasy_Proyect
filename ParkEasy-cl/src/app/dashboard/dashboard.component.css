@@ -1,0 +1,22 @@
+.earnings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border-radius: 0.75rem; /* Borde redondeado */
+}
+
+.card-header {
+    border-radius: 0.75rem 0.75rem 0 0; /* Borde redondeado solo en la parte superior */
+}
+
+.card-body {
+    padding: 2rem; /* Aumentar el padding para una mejor apariencia */
+}
+
+h3.display-4 {
+
+    font-weight: bold;
+}
