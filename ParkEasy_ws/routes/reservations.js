@@ -11,6 +11,7 @@ router.get('/active/:userId', reservationsController.getActiveReservation);
 router.get('/full', reservationsController.listFull);
 router.get('/:id', reservationsController.getById);
 router.post('/', reservationsController.add);
+router.post('/delete', reservationsController.deleteSelected);
 router.put('/exit/:id',reservationsController.markExit);
 router.put('/:id', reservationsController.update);
 router.delete('/:id', reservationsController.delete);

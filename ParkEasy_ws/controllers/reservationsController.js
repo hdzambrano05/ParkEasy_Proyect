@@ -99,7 +99,7 @@ module.exports = {
                     const entryTime = moment(reservation.reservation_start);
                     const exitTime = moment(reservation.reservation_end); // Hora actual
                     const duration = exitTime.diff(entryTime, 'hours', true); // Duración en horas (decimal)
-                    
+
                     let fee = 0;
 
                     // Calcular tarifa según el tipo de vehículo
@@ -127,7 +127,7 @@ module.exports = {
                 console.error('Error al listar las reservas:', error);
                 return res.status(500).json({ message: 'Error interno del servidor.' });
             });
-            
+
     },
 
     getById(req, res) {
@@ -222,6 +222,29 @@ module.exports = {
                     .destroy()
                     .then(() => res.status(204).send())
                     .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
+    },
+
+
+    deleteSelected(req, res) {
+        const ids = req.body.ids; // Espera un array de IDs en el cuerpo de la solicitud
+
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return res.status(400).send({ message: 'No IDs provided or invalid format' });
+        }
+
+        return reservations
+            .destroy({
+                where: {
+                    reservation_id: ids
+                }
+            })
+            .then(deletedCount => {
+                if (deletedCount === 0) {
+                    return res.status(404).send({ message: 'No reservations found for the provided IDs' });
+                }
+                return res.status(204).send();
             })
             .catch(error => res.status(400).send(error));
     },

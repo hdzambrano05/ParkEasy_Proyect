@@ -22,4 +22,8 @@ export class AdminReservationService {
     return this.http.get<{ message: string; totalEarnings: number }>(`${this.apiUrl}/earnings/monthly`);
   }
 
+  deleteReservations(ids: number[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/delete`, { ids });
+}
+
 }

@@ -11,6 +11,8 @@
     /* Alinear contenido en columna */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     /* Sombra más pronunciada */
+    z-index: 1050;
+    /* Asegúrate de que esté por encima de otros elementos */
 }
 
 .messages {

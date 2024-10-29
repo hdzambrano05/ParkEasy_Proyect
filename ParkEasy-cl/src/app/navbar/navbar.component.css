@@ -44,3 +44,21 @@
   outline: none; /* Elimina el borde de enfoque */
   box-shadow: none; /* Elimina la sombra del botón */
 }
+
+/* Estilos personalizados para la navbar */
+.navbar {
+  padding: 0.5rem 1rem; /* Ajusta el padding para un mejor espaciado */
+}
+
+.nav-link {
+  font-size: 0.9rem; /* Tamaño de fuente más pequeño para móviles */
+}
+
+.navbar-toggler {
+  border-color: rgba(0, 0, 0, 0.1); /* Mejora el contraste del botón de menú */
+}
+
+.dropdown-item {
+  font-size: 0.9rem; /* Ajusta el tamaño de fuente en el menú desplegable */
+}
+

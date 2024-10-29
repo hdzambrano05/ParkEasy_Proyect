@@ -1,34 +1,207 @@
 /* reservation-list.component.css */
+.container {
+  max-width: 1200px;
+  /* Limitar el ancho del contenedor */
+  margin: 20px auto;
+  /* Centrar el contenedor */
+  padding: 20px;
+  /* Espaciado interno */
+  background-color: #ffffff;
+  /* Fondo blanco para mayor contraste */
+  border-radius: 10px;
+  /* Esquinas redondeadas */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  /* Sombra más suave */
+}
+
 .table {
-    background-color: #f8f9fa; /* Fondo claro para la tabla */
+  background-color: #f8f9fa;
+  margin-top: 20px;
+  border-radius: 8px;
+  /* Esquinas redondeadas para la tabla */
+  overflow: hidden;
+  /* Para mantener las esquinas redondeadas */
+  width: auto;
+  /* Ajustar ancho automático */
+  max-width: 100%;
+  /* Asegurar que no exceda el contenedor */
+  margin: 0 10px;
+  /* Espacio lateral para que no ocupe toda la pantalla */
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  /* Espaciado interno para los encabezados */
+  text-align: left;
+  /* Alinear texto a la izquierda */
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 10px;
+  /* Espaciado interno para las celdas */
+}
+
+.text-primary {
+  color: #007bff;
+}
+
+.text-warning {
+  color: #ffc107;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.table tr:nth-child(even) {
+  background-color: #e9ecef;
+  /* Fondo gris claro para filas pares */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1;
+  /* Color de fondo al pasar el mouse */
+}
+
+.icon-hover {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icon-hover:hover {
+  color: #0056b3;
+  /* Un tono más oscuro para el efecto hover */
+}
+
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+/* Espacios alrededor de los botones */
+.btn {
+  margin: 10px 0;
+  /* Espaciado vertical para los botones */
+}
+
+/* Ajuste para el contenedor de la tabla */
+.table-container {
+  margin-bottom: 40px;
+  /* Espacio entre las tablas */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .table {
+    margin: 0 5px;
+    /* Menos espacio lateral en móviles */
   }
-  
-  .table th {
-    background-color: #007bff; /* Azul primario para los encabezados */
-    color: white; /* Color del texto en blanco */
+
+  .container {
+    padding: 10px;
+    /* Menos espaciado interno en móviles */
   }
-  
+
+  .table th,
   .table td {
-    vertical-align: middle; /* Centrar el contenido verticalmente */
+    padding: 8px;
+    /* Menos espaciado interno para celdas en móviles */
+    font-size: 14px;
+    /* Tamaño de fuente más pequeño en móviles */
   }
-  
-  .text-primary {
-    color: #007bff; /* Azul primario para enlaces */
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
+    /* Espaciado interno aún menor para pantallas pequeñas */
   }
-  
-  .text-warning {
-    color: #ffc107; /* Amarillo para el icono de editar */
+
+  .table th,
+  .table td {
+    padding: 5px;
+    /* Aún menos espaciado en móviles pequeños */
+    font-size: 12px;
+    /* Tamaño de fuente más pequeño */
   }
-  
-  .text-danger {
-    color: #dc3545; /* Rojo para el icono de eliminar */
+
+  .btn {
+    margin: 5px 0;
+    /* Menos espacio vertical para los botones */
   }
-  
-  a {
-    text-decoration: none; /* Sin subrayado en los enlaces */
+}
+
+/* styles.css */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  margin-bottom: 40px;
+}
+
+.table {
+  background-color: #f8f9fa;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.table th,
+.table td {
+  padding: 10px;
+}
+
+.table th {
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.icon-hover {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icon-hover:hover {
+  color: #0056b3;
+}
+
+@media (max-width: 576px) {
+  .table {
+    font-size: 0.9rem;
   }
-  
-  a:hover {
-    opacity: 0.8; /* Efecto de hover para los enlaces */
+
+  .table th,
+  .table td {
+    padding: 8px;
   }
-  
+}

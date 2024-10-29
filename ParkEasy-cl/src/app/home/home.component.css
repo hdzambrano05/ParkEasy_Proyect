@@ -1,12 +1,38 @@
-.container {
-    margin-top: 100px;
-  }
-  
-  h1 {
-    font-size: 2.5rem;
-  }
-  
-  .btn-warning {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-  }
+body {
+  background-color: #f8f9fa;
+  /* Color de fondo suave */
+}
+
+h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra para el título */
+}
+
+.card {
+  transition: transform 0.2s;
+  /* Transición para efecto hover */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  /* Efecto de elevar la tarjeta al pasar el mouse */
+}
+
+.btn-warning,
+.btn-success {
+  transition: background-color 0.3s, transform 0.2s;
+  /* Transición para los botones */
+}
+
+.btn-warning:hover,
+.btn-success:hover {
+  background-color: #ffc107;
+  /* Color más oscuro al pasar el mouse */
+  transform: scale(1.05);
+  /* Efecto de zoom en el botón */
+}
+
+hr {
+  border-top: 2px solid #007bff;
+  /* Línea de separación más gruesa y colorida */
+}
