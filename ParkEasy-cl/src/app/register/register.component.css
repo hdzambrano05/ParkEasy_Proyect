@@ -139,10 +139,36 @@ body {
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 576px) {
     .container {
-        max-width: 300px;
+        max-width: 100%;
+        /* Ajustar para que ocupe todo el ancho disponible */
+        padding: 15px;
+        /* Espaciado en los lados */
+    }
+
+    .card {
+        border-radius: 15px;
+        /* Reduce la curvatura para pantallas pequeñas */
     }
 
     .card-title {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
+        /* Ajusta el tamaño del texto */
     }
+}
+
+/* Títulos en móviles */
+.card-title {
+    font-size: 1.4rem;
+    /* Tamaño del título en pantallas grandes */
+}
+
+/* Botón */
+.btn-primary {
+    transition: background-color 0.4s, box-shadow 0.4s, transform 0.3s;
+}
+
+/* Mensajes de error y éxito */
+.alert {
+    margin-top: 10px;
+    /* Espaciado entre mensajes */
 }

@@ -20,3 +20,15 @@ h3.display-4 {
 
     font-weight: bold;
 }
+
+.table th {
+    background-color: #f8f9fa; /* Color de fondo de la cabecera */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Alineación vertical centrada */
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Color de fondo al pasar el mouse */
+}
