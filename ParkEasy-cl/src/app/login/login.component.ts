@@ -32,7 +32,7 @@ export class LoginComponent {
         if (role === 1) { // Suponiendo 1 es el rol de administrador
           this.router.navigate(['/dashboard']); // Redirige al dashboard de administrador
         } else {
-          this.router.navigate(['/spaces']); // Redirige al dashboard de usuario
+          this.router.navigate(['/map']); // Redirige al dashboard de usuario
         }
   
         // Opción para refrescar el estado de la barra de navegación

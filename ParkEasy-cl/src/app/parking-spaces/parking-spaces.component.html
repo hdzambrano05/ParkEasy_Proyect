@@ -1,11 +1,9 @@
 <!-- Mostrar botón solo si hay una reserva activa -->
-<div class="d-flex justify-content-end mb-3">
-  <!-- Mostrar botón solo si hay una reserva activa -->
-  <button *ngIf="hasActiveReservation" class="btn custom-button" (click)="markExit()">Marcar salida</button>
-</div>
+
 
 <!-- Modal de éxito -->
-<div class="modal fade show" *ngIf="isSuccessModalVisible" style="display: block;" aria-labelledby="successModalLabel" aria-hidden="true">
+<div class="modal fade show" *ngIf="isSuccessModalVisible" style="display: block;" aria-labelledby="successModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,6 +12,7 @@
       </div>
       <div class="modal-body">
         <p>La salida del vehículo ha sido registrada exitosamente.</p>
+        <p>Dirigete con a realizar el pago con nuestros Admistradores</p>
         <p>Tarifa a pagar: {{ fee | currency }}</p>
       </div>
       <div class="modal-footer">
@@ -24,7 +23,8 @@
 </div>
 
 <!-- Modal de error -->
-<div class="modal fade show" *ngIf="isErrorModalVisible" style="display: block;" aria-labelledby="errorModalLabel" aria-hidden="true">
+<div class="modal fade show" *ngIf="isErrorModalVisible" style="display: block;" aria-labelledby="errorModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -41,37 +41,37 @@
   </div>
 </div>
 
-
-
-<!--Estacionamiento-->
-
+<!-- Estacionamiento -->
 <div class="container mt-4">
-  <h2>Espacios de Estacionamiento</h2>
+  <div class="d-flex justify-content-end mb-3">
+    <button *ngIf="hasActiveReservation" class="btn custom-button exit-button" (click)="markExit()">Marcar salida</button>
+  </div>
+  <h2 class="text-center mb-4">Espacios de Estacionamiento</h2>
 
   <div class="row">
-    <div class="col">
-      <h4>Espacios A</h4>
-      <div class="d-flex flex-wrap">
-        <div *ngFor="let space of spacesA" class="card m-2"
+    <div class="col-md-6 col-12">
+      <h4 class="text-center">Espacios de Motos</h4>
+      <div class="d-flex flex-wrap justify-content-center">
+        <div *ngFor="let space of spacesA" class="card m-2 space-card"
           [ngClass]="{'available': !space.is_occupied, 'occupied': space.is_occupied}"
           (click)="openValidationModal(space)" style="width: 100px;">
           <div class="card-body text-center">
             <h5 class="card-title">{{ space.space_number }}</h5>
-            <p>{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</p>
+            <p class="card-text">{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col">
-      <h4>Espacios B</h4>
-      <div class="d-flex flex-wrap">
-        <div *ngFor="let space of spacesB" class="card m-2"
+    <div class="col-md-6 col-12">
+      <h4 class="text-center">Espacios de Carros</h4>
+      <div class="d-flex flex-wrap justify-content-center">
+        <div *ngFor="let space of spacesB" class="card m-2 space-card"
           [ngClass]="{'available': !space.is_occupied, 'occupied': space.is_occupied}"
           (click)="openValidationModal(space)" style="width: 100px;">
           <div class="card-body text-center">
             <h5 class="card-title">{{ space.space_number }}</h5>
-            <p>{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</p>
+            <p class="card-text">{{ space.is_occupied ? 'Ocupado' : 'Disponible' }}</p>
           </div>
         </div>
       </div>
@@ -80,7 +80,8 @@
 </div>
 
 <!-- Modal de notificación de espacio ocupado -->
-<div class="modal fade" id="occupiedNotificationModal" tabindex="-1" aria-labelledby="occupiedNotificationModalLabel" aria-hidden="true">
+<div class="modal fade" id="occupiedNotificationModal" tabindex="-1" aria-labelledby="occupiedNotificationModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -103,7 +104,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="validationModalLabel">Validar Vehículo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form (submit)="validateVehicle()">
@@ -125,20 +126,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="vehicleModalLabel">Registrar Vehículo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form (submit)="registerVehicleAndReserve()">
           <div class="mb-3">
             <label for="vehicle_type" class="form-label">Tipo de Vehículo</label>
-            <div class="mb-3">
-              <select class="form-select" id="vehicle_type" [(ngModel)]="vehicle.vehicle_type" name="vehicle_type"
-                required>
-                <option value="" disabled selected>Seleccione el tipo de vehículo</option>
-                <option value="Carro">CARRO</option>
-                <option value="Moto">MOTO</option>
-              </select>
-            </div>
+            <select class="form-select" id="vehicle_type" [(ngModel)]="vehicle.vehicle_type" name="vehicle_type"
+              required>
+              <option value="" disabled selected>Seleccione el tipo de vehículo</option>
+              <option value="Carro">CARRO</option>
+              <option value="Moto">MOTO</option>
+            </select>
           </div>
           <div class="mb-3">
             <label for="color" class="form-label">Color del Vehículo</label>
@@ -158,16 +157,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="reservationModalLabel">Reservar Espacio</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (submit)="reserveSpace()">
-          <div class="mb-3">
-            <h5 class="modal-title"> Tu vehiculo ya esta registrado</h5>
-            <label for="reservation_start" class="form-label">Deseas Reservar</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Reservar</button>
-        </form>
+        <p> Tu vehiculo ya esta registrado</p>
+        <p>¿Desea continuar con la reserva?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="reserveSpace()">Reservar</button>
       </div>
     </div>
   </div>

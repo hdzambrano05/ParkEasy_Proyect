@@ -1,0 +1,28 @@
+h1:hover {
+    color: #0056b3; /* Cambia el color al pasar el mouse */
+    transition: color 0.3s ease; /* Transición suave */
+  }
+
+  
+#map {
+    height: 400px; /* Altura fija para el mapa */
+    width: 100%; /* Ancho completo del contenedor */
+    border: 3px solid #007bff; /* Borde azul */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Sombra */
+    border-radius: 10px; /* Bordes redondeados */
+    transition: transform 0.3s; /* Transición suave al escalar */
+  }
+
+
+  #map:hover {
+    transform: scale(1.02); /* Efecto de escala al pasar el ratón */
+  }
+  
+  @media (max-width: 768px) {
+    #map {
+      height: 300px; /* Ajusta la altura en móviles */
+    }
+  }
+
+
+  

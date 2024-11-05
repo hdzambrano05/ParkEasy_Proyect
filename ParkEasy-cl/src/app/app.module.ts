@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr'; 
 import { ReactiveFormsModule } from '@angular/forms'; 
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,8 @@ import { UsersManagerComponent } from './users-manager/users-manager.component';
 import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { MapComponent } from './map/map.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     UsersManagerComponent,
     SpacesAdminComponent,
     ForgetPasswordComponent,
-    ChatboxComponent
+    ChatboxComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
      
   ],
   providers: [],

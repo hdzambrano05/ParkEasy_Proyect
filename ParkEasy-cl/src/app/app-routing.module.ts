@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersManagerComponent } from './users-manager/users-manager.component';
 import { SpacesAdminComponent } from './spaces-admin/spaces-admin.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
 
@@ -39,6 +40,12 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+
+  {
+    path: 'map',
+    component: MapComponent,
+    canActivate: [AuthGuard]
   },
 
   {
