@@ -18,10 +18,10 @@ export class MapComponent implements OnInit {
   private parkings: Parking[] = [
     { name: 'Parqueadero 1', lat: 1.2146, lng: -77.2805 },
     { name: 'Parqueadero 2', lat: 1.2160, lng: -77.2825 },
-    { name: 'Parqueadero 3', lat: 1.2130, lng: -77.2850 }
+    { name: 'Parqueadero 3', lat: 1.2185, lng: -77.2830 }
   ];
 
-  constructor(private router: Router) { } // Corregido la sintaxis aquí
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.initMap();
@@ -41,11 +41,29 @@ export class MapComponent implements OnInit {
   }
 
   private loadParkingMarkers(): void {
+    const userCoords = this.getUserCoordinates(); // Obtiene las coordenadas del usuario
+    if (!userCoords) {
+      console.error("No se pudieron obtener las coordenadas del usuario.");
+      return; // Salir si no se pueden obtener las coordenadas
+    }
+
+    const nearestParking = this.findNearestParking(userCoords);
+
     this.parkings.forEach(parking => {
-      const marker = L.marker([parking.lat, parking.lng])
-        .addTo(this.map!)
-        .bindPopup(parking.name)
-        .on('click', () => this.openReservationComponent(parking)); // Evento click
+      // Crear un icono de marcador personalizado usando Bootstrap Icons
+      const customIcon = L.divIcon({
+        html: `<i class="bi bi-geo-alt-fill" style="color: red; font-size: 1.5rem;"></i>`,
+        className: '' // Evitar estilos de icono predeterminados
+      });
+
+      const marker = L.marker([parking.lat, parking.lng], { icon: customIcon }).addTo(this.map!);
+      marker.bindPopup(parking.name);
+
+      if (nearestParking === parking) {
+        marker.on('click', () => this.openReservationComponent(parking));
+      } else {
+        marker.on('click', () => this.showUnavailableModal(parking));
+      }
     });
   }
 
@@ -54,7 +72,19 @@ export class MapComponent implements OnInit {
     this.router.navigate(['/spaces', { parkingName: parking.name }]);
   }
 
+  private showUnavailableModal(parking: Parking): void {
+    alert(`El parqueadero ${parking.name} no está disponible en este momento.`);
+  }
+
+  private getUserCoordinates(): L.LatLngExpression | null {
+    // Devuelve las coordenadas del usuario; puedes implementar aquí la lógica para obtener las coordenadas actuales
+    // En este ejemplo, simplemente devolveré un valor ficticio
+    return [1.2136, -77.2815]; // Debes reemplazar esto por las coordenadas reales
+  }
+
   private setUserLocation(): void {
+    const defaultLocation: L.LatLngExpression = [1.2136, -77.2815]; // Coordenadas de Pasto
+  
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -62,25 +92,61 @@ export class MapComponent implements OnInit {
             position.coords.latitude,
             position.coords.longitude
           ];
-
-          const userMarker = L.marker(userCoords)
+  
+          // Cambiar a un ícono de persona usando Bootstrap Icons (bi-person-fill)
+          const userIcon = L.divIcon({
+            html: `<i class="bi bi-person-fill" style="color: blue; font-size: 1.5rem;"></i>`, // Ícono de persona
+            className: '' // Evitar estilos predeterminados de icono
+          });
+  
+          // Usar el nuevo ícono personalizado en el marcador
+          const userMarker = L.marker(userCoords, { icon: userIcon })
             .addTo(this.map!)
             .bindPopup('Tu ubicación actual', { closeButton: false })
             .openPopup();
-
+  
           this.map?.setView(userCoords, 15);
           const nearestParking = this.findNearestParking(userCoords);
           if (nearestParking) {
-            userMarker.bindPopup(`Tu ubicación actual<br>El parqueadero más cercano es ${nearestParking.name}`).openPopup();
+            userMarker.bindPopup(`
+              <div>
+                <strong>Tu ubicación actual</strong><br>
+                <strong>El parqueadero más cercano es:</strong><br>
+                <span>${nearestParking.name}</span><br>
+                <a href="/spaces?parkingName=${nearestParking.name}" style="color: blue; text-decoration: underline;">Ver más detalles</a>
+              </div>
+            `).openPopup();
           }
         },
         (error) => {
-          console.error("Error al obtener la ubicación: ", error.message);
+          console.warn("No se pudo obtener la ubicación, utilizando ubicación por defecto.");
+          this.setDefaultLocation(defaultLocation);
         },
         { enableHighAccuracy: true }
       );
     } else {
-      console.error("La geolocalización no está disponible en este navegador.");
+      console.warn("La geolocalización no está disponible en este navegador, utilizando ubicación por defecto.");
+      this.setDefaultLocation(defaultLocation);
+    }
+  }
+  
+  private setDefaultLocation(location: L.LatLngExpression): void {
+    this.map?.setView(location, 15);
+    const userMarker = L.marker(location)
+      .addTo(this.map!)
+      .bindPopup('Ubicación predeterminada en Pasto', { closeButton: false })
+      .openPopup();
+
+    const nearestParking = this.findNearestParking(location);
+    if (nearestParking) {
+      userMarker.bindPopup(`
+        <div>
+          <strong>Ubicación predeterminada en Pasto</strong><br>
+          <strong>El parqueadero más cercano es:</strong><br>
+          <span>${nearestParking.name}</span><br>
+          <a href="/spaces?parkingName=${nearestParking.name}" style="color: blue; text-decoration: underline;">Ver más detalles</a>
+        </div>
+      `).openPopup();
     }
   }
 

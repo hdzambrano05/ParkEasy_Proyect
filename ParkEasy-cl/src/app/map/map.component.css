@@ -1,28 +1,37 @@
+/* Efecto Hover en el h1 */
 h1:hover {
-    color: #0056b3; /* Cambia el color al pasar el mouse */
-    transition: color 0.3s ease; /* Transición suave */
-  }
+  color: #0056b3; /* Cambia el color al pasar el mouse */
+  transition: color 0.3s ease; /* Transición suave */
+}
 
-  
+/* Estilos para el contenedor del estacionamiento más cercano */
+.nearest-parking {
+  background-color: white; /* Color de fondo */
+  border: 2px solid #28a745; /* Borde verde */
+  padding: 5px; /* Espaciado */
+  border-radius: 5px; /* Bordes redondeados */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrado del texto */
+}
+
+/* Estilos para el mapa */
 #map {
-    height: 400px; /* Altura fija para el mapa */
-    width: 100%; /* Ancho completo del contenedor */
-    border: 3px solid #007bff; /* Borde azul */
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Sombra */
-    border-radius: 10px; /* Bordes redondeados */
-    transition: transform 0.3s; /* Transición suave al escalar */
+  height: 400px; /* Altura fija para el mapa */
+  width: 100%; /* Ancho completo del contenedor */
+  border: 3px solid #007bff; /* Borde azul */
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Sombra sutil */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: transform 0.3s; /* Transición suave al escalar */
+}
+
+/* Efecto de escala en el mapa al pasar el ratón */
+#map:hover {
+  transform: scale(1.02); /* Escala al 102% al pasar el ratón */
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+  #map {
+    height: 300px; /* Ajusta la altura del mapa en dispositivos móviles */
   }
-
-
-  #map:hover {
-    transform: scale(1.02); /* Efecto de escala al pasar el ratón */
-  }
-  
-  @media (max-width: 768px) {
-    #map {
-      height: 300px; /* Ajusta la altura en móviles */
-    }
-  }
-
-
-  
+}
