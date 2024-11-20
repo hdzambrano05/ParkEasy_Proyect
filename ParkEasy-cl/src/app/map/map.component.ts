@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; // Importar Router
 import * as L from 'leaflet';
+import * as bootstrap from 'bootstrap';
+
+import 'leaflet-routing-machine';
+
 
 interface Parking {
+  id: number;
   name: string;
   lat: number;
   lng: number;
+  address: string;
+  capacity: number;
+  description: string;
 }
 
 @Component({
@@ -16,10 +24,36 @@ interface Parking {
 export class MapComponent implements OnInit {
   private map: L.Map | undefined;
   private parkings: Parking[] = [
-    { name: 'Parqueadero 1', lat: 1.2146, lng: -77.2805 },
-    { name: 'Parqueadero 2', lat: 1.2160, lng: -77.2825 },
-    { name: 'Parqueadero 3', lat: 1.2185, lng: -77.2830 }
+    {
+
+      id: 1,
+      name: 'Parqueadero 1',
+      lat: 1.2146,
+      lng: -77.2805,
+      address: 'Calle 1 #23-45',
+      capacity: 50,
+      description: 'Amplio espacio para carros y motos.'
+    },
+    {
+      id: 2,
+      name: 'Parqueadero 2',
+      lat: 1.2160,
+      lng: -77.2825,
+      address: 'Carrera 4 #56-78',
+      capacity: 30,
+      description: 'Parqueadero cubierto con vigilancia 24/7.'
+    },
+    {
+      id: 3,
+      name: 'Parqueadero 3',
+      lat: 1.2185,
+      lng: -77.2830,
+      address: 'Diagonal 7 #12-34',
+      capacity: 20,
+      description: 'Parqueadero al aire libre cerca al centro comercial.'
+    }
   ];
+
 
   constructor(private router: Router) { }
 
@@ -41,31 +75,132 @@ export class MapComponent implements OnInit {
   }
 
   private loadParkingMarkers(): void {
-    const userCoords = this.getUserCoordinates(); // Obtiene las coordenadas del usuario
+    const userCoords = this.getUserCoordinates();
     if (!userCoords) {
       console.error("No se pudieron obtener las coordenadas del usuario.");
-      return; // Salir si no se pueden obtener las coordenadas
+      return;
     }
 
     const nearestParking = this.findNearestParking(userCoords);
 
     this.parkings.forEach(parking => {
-      // Crear un icono de marcador personalizado usando Bootstrap Icons
       const customIcon = L.divIcon({
         html: `<i class="bi bi-geo-alt-fill" style="color: red; font-size: 1.5rem;"></i>`,
-        className: '' // Evitar estilos de icono predeterminados
+        className: ''
       });
 
       const marker = L.marker([parking.lat, parking.lng], { icon: customIcon }).addTo(this.map!);
-      marker.bindPopup(parking.name);
 
-      if (nearestParking === parking) {
-        marker.on('click', () => this.openReservationComponent(parking));
-      } else {
-        marker.on('click', () => this.showUnavailableModal(parking));
-      }
+      const popupContent = `
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title d-flex align-items-center">
+      <i class="bi bi-building me-2" style="font-size: 1.5rem; color: #007bff;"></i>
+      ${parking.name}
+    </h5>
+    <p class="card-text text-muted">
+      <i class="bi bi-geo-alt me-2"></i>${parking.address}
+    </p>
+    <p class="card-text">
+      <i class="bi bi-person-fill me-2"></i>Capacidad: <strong>${parking.capacity}</strong>
+    </p>
+    <div class="d-flex justify-content-between align-items-center">
+      <a href="#" class="btn btn-primary btn-sm" id="parking-${parking.id}-details">
+        <i class="bi bi-info-circle me-2"></i>Ver más
+      </a>
+    </div>
+  </div>
+</div>
+
+      `;
+
+      marker.bindPopup(popupContent);
+
+      marker.on('popupopen', () => {
+        const detailsButton = document.getElementById(`parking-${parking.id}-details`);
+        if (detailsButton) {
+          detailsButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showParkingDetailsModal(parking, nearestParking);
+          });
+        }
+      });
     });
   }
+
+  /**
+   * Muestra un modal con información completa del parqueadero.
+   * @param parking Detalles del parqueadero seleccionado.
+   * @param nearestParking El parqueadero más cercano.
+   */
+  private showParkingDetailsModal(parking: any, nearestParking: any): void {
+    const isNearest = parking === nearestParking;
+
+    const modalContent = `
+   <div class="modal fade" id="parkingDetailsModal" tabindex="-1" aria-labelledby="parkingDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title d-flex align-items-center" id="parkingDetailsModalLabel">
+          <i class="bi bi-geo-alt-fill me-2" style="font-size: 1.5rem; color: #007bff;"></i>
+          ${parking.name}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between mb-3">
+          <p><strong>Dirección:</strong> ${parking.address}</p>
+          <p><strong>Capacidad:</strong> ${parking.capacity}</p>
+        </div>
+        <div class="mb-4">
+          <p><strong>Descripción:</strong> ${parking.description || 'No disponible'}</p>
+        </div>
+        <div class="alert alert-info mb-4">
+          <i class="bi bi-info-circle me-2"></i> Este parqueadero tiene acceso fácil y vigilancia 24/7.
+        </div>
+        <div class="text-center">
+          <p><i class="bi bi-calendar-check me-2"></i><strong>Reserva ahora y asegura tu espacio</strong></p>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-2"></i>Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" id="reserveButton" ${isNearest ? '' : 'disabled'}>
+          <i class="bi bi-check-circle me-2"></i>Reservar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    `;
+
+    const modalContainer = document.createElement('div');
+    modalContainer.innerHTML = modalContent;
+    document.body.appendChild(modalContainer);
+
+    const modalElement = document.getElementById('parkingDetailsModal');
+    const modal = new bootstrap.Modal(modalElement!);
+    modal.show();
+
+    const reserveButton = document.getElementById('reserveButton');
+    if (reserveButton) {
+      reserveButton.addEventListener('click', () => {
+        if (isNearest) {
+          modal.hide();
+          this.openReservationComponent(parking);
+        } else {
+          alert('Este parqueadero no está disponible para reservas.');
+        }
+      });
+    }
+
+    modalElement?.addEventListener('hidden.bs.modal', () => {
+      modalContainer.remove();
+    });
+  }
+
 
   private openReservationComponent(parking: Parking): void {
     // Redirigir a la ruta del componente de reservas, pasando el nombre del parqueadero como parámetro
@@ -84,7 +219,7 @@ export class MapComponent implements OnInit {
 
   private setUserLocation(): void {
     const defaultLocation: L.LatLngExpression = [1.2136, -77.2815]; // Coordenadas de Pasto
-  
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -92,19 +227,19 @@ export class MapComponent implements OnInit {
             position.coords.latitude,
             position.coords.longitude
           ];
-  
+
           // Cambiar a un ícono de persona usando Bootstrap Icons (bi-person-fill)
           const userIcon = L.divIcon({
             html: `<i class="bi bi-person-fill" style="color: blue; font-size: 1.5rem;"></i>`, // Ícono de persona
             className: '' // Evitar estilos predeterminados de icono
           });
-  
+
           // Usar el nuevo ícono personalizado en el marcador
           const userMarker = L.marker(userCoords, { icon: userIcon })
             .addTo(this.map!)
             .bindPopup('Tu ubicación actual', { closeButton: false })
             .openPopup();
-  
+
           this.map?.setView(userCoords, 15);
           const nearestParking = this.findNearestParking(userCoords);
           if (nearestParking) {
@@ -129,7 +264,7 @@ export class MapComponent implements OnInit {
       this.setDefaultLocation(defaultLocation);
     }
   }
-  
+
   private setDefaultLocation(location: L.LatLngExpression): void {
     this.map?.setView(location, 15);
     const userMarker = L.marker(location)
@@ -184,4 +319,6 @@ export class MapComponent implements OnInit {
 
     return R * c; // Distancia en metros
   }
+
+
 }
