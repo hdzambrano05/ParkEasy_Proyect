@@ -14,6 +14,7 @@ interface Parking {
   address: string;
   capacity: number;
   description: string;
+  rating: number;
 }
 
 @Component({
@@ -32,7 +33,8 @@ export class MapComponent implements OnInit {
       lng: -77.2805,
       address: 'Calle 1 #23-45',
       capacity: 50,
-      description: 'Amplio espacio para carros y motos.'
+      description: 'Parqueadero Cerrado, Espacio cerrado con piso de cemento de alta resistencia. Su capacidad es adecuada para vehículos de diferentes tamaños, y su diseño garantiza seguridad y protección contra las inclemencias del tiempo. Ideal para quienes buscan un parqueadero seguro y duradero.',
+      rating: 5
     },
     {
       id: 2,
@@ -41,7 +43,8 @@ export class MapComponent implements OnInit {
       lng: -77.2825,
       address: 'Carrera 4 #56-78',
       capacity: 30,
-      description: 'Parqueadero cubierto con vigilancia 24/7.'
+      description: 'Parqueadero Abierto, Estacionamiento al aire libre con piso de cemento, robusto y fácil de mantener. Es ideal para vehículos pequeños, y su estructura permite un acceso rápido y eficiente. Perfecto para quienes necesitan un parqueadero sencillo pero funcional.',
+      rating: 4
     },
     {
       id: 3,
@@ -50,7 +53,8 @@ export class MapComponent implements OnInit {
       lng: -77.2830,
       address: 'Diagonal 7 #12-34',
       capacity: 20,
-      description: 'Parqueadero al aire libre cerca al centro comercial.'
+      description: 'Parqueadero al aire libre, Estacionamiento al aire libre con piso de piedras compactadas. Aunque más pequeño y rústico, ofrece un lugar económico para estacionar vehículos de tamaño pequeño o mediano. Su superficie es resistente y fácil de limpiar, ideal para quienes prefieren una opción más natural.',
+      rating: 3
     }
   ];
 
@@ -91,27 +95,38 @@ export class MapComponent implements OnInit {
 
       const marker = L.marker([parking.lat, parking.lng], { icon: customIcon }).addTo(this.map!);
 
-      const popupContent = `
-<div class="card mb-4 shadow-sm">
-  <div class="card-body">
-    <h5 class="card-title d-flex align-items-center">
-      <i class="bi bi-building me-2" style="font-size: 1.5rem; color: #007bff;"></i>
-      ${parking.name}
-    </h5>
-    <p class="card-text text-muted">
-      <i class="bi bi-geo-alt me-2"></i>${parking.address}
-    </p>
-    <p class="card-text">
-      <i class="bi bi-person-fill me-2"></i>Capacidad: <strong>${parking.capacity}</strong>
-    </p>
-    <div class="d-flex justify-content-between align-items-center">
-      <a href="#" class="btn btn-primary btn-sm" id="parking-${parking.id}-details">
-        <i class="bi bi-info-circle me-2"></i>Ver más
-      </a>
-    </div>
-  </div>
-</div>
+      // Función para generar las estrellas en base a la puntuación
+      const generateStars = (rating: number): string => {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+          stars += `<i class="bi bi-star${i <= rating ? '-fill' : ''}" style="color: #ffd700;"></i>`;
+        }
+        return stars;
+      };
 
+      const popupContent = `
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title d-flex align-items-center">
+            <i class="bi bi-building me-2" style="font-size: 1.5rem; color: #007bff;"></i>
+            ${parking.name}
+          </h5>
+          <p class="card-text text-muted">
+            <i class="bi bi-geo-alt me-2"></i>${parking.address}
+          </p>
+          <p class="card-text">
+            <i class="bi bi-person-fill me-2"></i>Capacidad: <strong>${parking.capacity}</strong>
+          </p>
+          <p class="card-text">
+            <i class="bi bi-star me-2"></i>Rating: ${generateStars(parking.rating || 0)} <!-- Puntuación -->
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="#" class="btn btn-primary btn-sm" id="parking-${parking.id}-details">
+              <i class="bi bi-info-circle me-2"></i>Ver más
+            </a>
+          </div>
+        </div>
+      </div>
       `;
 
       marker.bindPopup(popupContent);
@@ -133,47 +148,58 @@ export class MapComponent implements OnInit {
    * @param parking Detalles del parqueadero seleccionado.
    * @param nearestParking El parqueadero más cercano.
    */
-  private showParkingDetailsModal(parking: any, nearestParking: any): void {
+  public showParkingDetailsModal(parking: any, nearestParking: any): void {
     const isNearest = parking === nearestParking;
 
+    // Función para generar las estrellas en base a la puntuación
+    const generateStars = (rating: number): string => {
+      let stars = '';
+      for (let i = 1; i <= 5; i++) {
+        stars += `<i class="bi bi-star${i <= rating ? '-fill' : ''}" style="color: #ffd700;"></i>`;
+      }
+      return stars;
+    };
+
     const modalContent = `
-   <div class="modal fade" id="parkingDetailsModal" tabindex="-1" aria-labelledby="parkingDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title d-flex align-items-center" id="parkingDetailsModalLabel">
-          <i class="bi bi-geo-alt-fill me-2" style="font-size: 1.5rem; color: #007bff;"></i>
-          ${parking.name}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="d-flex justify-content-between mb-3">
-          <p><strong>Dirección:</strong> ${parking.address}</p>
-          <p><strong>Capacidad:</strong> ${parking.capacity}</p>
+     <div class="modal fade" id="parkingDetailsModal" tabindex="-1" aria-labelledby="parkingDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title d-flex align-items-center" id="parkingDetailsModalLabel">
+            <i class="bi bi-geo-alt-fill me-2" style="font-size: 1.5rem; color: #007bff;"></i>
+            ${parking.name}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="mb-4">
-          <p><strong>Descripción:</strong> ${parking.description || 'No disponible'}</p>
+        <div class="modal-body">
+          <div class="d-flex justify-content-between mb-3">
+            <p><strong>Dirección:</strong> ${parking.address}</p>
+            <p><strong>Capacidad:</strong> ${parking.capacity}</p>
+          </div>
+          <div class="mb-4">
+            <p><strong>Descripción:</strong> ${parking.description || 'No disponible'}</p>
+          </div>
+          <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle me-2"></i> Este parqueadero tiene acceso fácil y vigilancia 24/7.
+          </div>
+          <div class="mb-4">
+            <p><strong>Puntuación:</strong> ${generateStars(parking.rating || 0)}</p> <!-- Puntuación -->
+          </div>
+          <div class="text-center">
+            <p><i class="bi bi-calendar-check me-2"></i><strong>Reserva ahora y asegura tu espacio</strong></p>
+          </div>
         </div>
-        <div class="alert alert-info mb-4">
-          <i class="bi bi-info-circle me-2"></i> Este parqueadero tiene acceso fácil y vigilancia 24/7.
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-2"></i>Cerrar
+          </button>
+          <button type="button" class="btn btn-primary" id="reserveButton" ${isNearest ? '' : 'disabled'}>
+            <i class="bi bi-check-circle me-2"></i>Reservar
+          </button>
         </div>
-        <div class="text-center">
-          <p><i class="bi bi-calendar-check me-2"></i><strong>Reserva ahora y asegura tu espacio</strong></p>
-        </div>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          <i class="bi bi-x-circle me-2"></i>Cerrar
-        </button>
-        <button type="button" class="btn btn-primary" id="reserveButton" ${isNearest ? '' : 'disabled'}>
-          <i class="bi bi-check-circle me-2"></i>Reservar
-        </button>
       </div>
     </div>
   </div>
-</div>
-
     `;
 
     const modalContainer = document.createElement('div');
@@ -202,6 +228,7 @@ export class MapComponent implements OnInit {
   }
 
 
+
   private openReservationComponent(parking: Parking): void {
     // Redirigir a la ruta del componente de reservas, pasando el nombre del parqueadero como parámetro
     this.router.navigate(['/spaces', { parkingName: parking.name }]);
@@ -217,6 +244,9 @@ export class MapComponent implements OnInit {
     return [1.2136, -77.2815]; // Debes reemplazar esto por las coordenadas reales
   }
 
+  // Variable para almacenar el control de la ruta, para poder eliminar la ruta anterior si es necesario
+  private routeControl: L.Routing.Control | null = null;
+
   private setUserLocation(): void {
     const defaultLocation: L.LatLngExpression = [1.2136, -77.2815]; // Coordenadas de Pasto
 
@@ -228,29 +258,35 @@ export class MapComponent implements OnInit {
             position.coords.longitude
           ];
 
-          // Cambiar a un ícono de persona usando Bootstrap Icons (bi-person-fill)
+          // Crear un ícono personalizado para el usuario
           const userIcon = L.divIcon({
             html: `<i class="bi bi-person-fill" style="color: blue; font-size: 1.5rem;"></i>`, // Ícono de persona
-            className: '' // Evitar estilos predeterminados de icono
+            className: ''
           });
 
-          // Usar el nuevo ícono personalizado en el marcador
+          // Crear marcador para la ubicación del usuario
           const userMarker = L.marker(userCoords, { icon: userIcon })
             .addTo(this.map!)
             .bindPopup('Tu ubicación actual', { closeButton: false })
             .openPopup();
 
           this.map?.setView(userCoords, 15);
+
+          // Encontrar el parqueadero más cercano
           const nearestParking = this.findNearestParking(userCoords);
           if (nearestParking) {
             userMarker.bindPopup(`
-              <div>
-                <strong>Tu ubicación actual</strong><br>
-                <strong>El parqueadero más cercano es:</strong><br>
-                <span>${nearestParking.name}</span><br>
-                <a href="/spaces?parkingName=${nearestParking.name}" style="color: blue; text-decoration: underline;">Ver más detalles</a>
-              </div>
-            `).openPopup();
+            <div>
+              <strong>Tu ubicación actual</strong><br>
+              <strong>El parqueadero más cercano es:</strong><br>
+              <span>${nearestParking.name}</span><br>
+            
+          `)
+              .openPopup();
+
+
+            // Crear la ruta hacia el parqueadero más cercano sin marcadores adicionales
+            this.createRoute(userCoords, [nearestParking.lat, nearestParking.lng]);
           }
         },
         (error) => {
@@ -265,6 +301,29 @@ export class MapComponent implements OnInit {
     }
   }
 
+  /**
+   * Crear una ruta desde la ubicación del usuario hasta el parqueadero más cercano.
+   * @param start LatLng de la ubicación de inicio (usuario).
+   * @param end LatLng de la ubicación de destino (parqueadero).
+   */
+  private createRoute(start: L.LatLngExpression, end: L.LatLngExpression): void {
+    // Si ya existe una ruta, eliminarla antes de crear una nueva
+    if (this.routeControl) {
+      this.map?.removeControl(this.routeControl);
+    }
+
+    // Crear el control de la ruta sin marcadores
+    this.routeControl = L.Routing.control({
+      waypoints: [
+        L.latLng(start),
+        L.latLng(end)
+      ],
+      routeWhileDragging: true,  // Permite mover el marcador de ruta
+      showAlternatives: false,   // No mostrar rutas alternativas
+      // No crear marcadores en la ruta
+    }).addTo(this.map!);
+  }
+
   private setDefaultLocation(location: L.LatLngExpression): void {
     this.map?.setView(location, 15);
     const userMarker = L.marker(location)
@@ -275,15 +334,18 @@ export class MapComponent implements OnInit {
     const nearestParking = this.findNearestParking(location);
     if (nearestParking) {
       userMarker.bindPopup(`
-        <div>
-          <strong>Ubicación predeterminada en Pasto</strong><br>
-          <strong>El parqueadero más cercano es:</strong><br>
-          <span>${nearestParking.name}</span><br>
-          <a href="/spaces?parkingName=${nearestParking.name}" style="color: blue; text-decoration: underline;">Ver más detalles</a>
-        </div>
-      `).openPopup();
+      <div>
+        <strong>Ubicación predeterminada en Pasto</strong><br>
+        <strong>El parqueadero más cercano es:</strong><br>
+        <span>${nearestParking.name}</span><br>
+        <a href="/spaces?parkingName=${nearestParking.name}" style="color: blue; text-decoration: underline;">Ver más detalles</a>
+      </div>
+    `).openPopup();
+      // Crear la ruta hacia el parqueadero más cercano sin marcadores
+      this.createRoute(location, [nearestParking.lat, nearestParking.lng]);
     }
   }
+
 
   private findNearestParking(userCoords: L.LatLngExpression): Parking | null {
     let nearestParking: Parking | null = null;
