@@ -1,27 +1,26 @@
 /* Navbar container */
 .custom-navbar {
-  background: #ffffff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.8rem 0;
-  font-size: 0.95rem;
+  background: linear-gradient(135deg, #002050, #0557c9);
+  padding: 0.5rem 0; /* Reducido para hacerla más delgada */
+  font-size: 0.9rem; /* Tamaño de texto ligeramente más pequeño */
   transition: background-color 0.3s ease-in-out;
 }
 
 /* Navbar brand and icon */
 .navbar-brand {
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: #0056d6;
+  font-weight: 600;
+  font-size: 1.1rem; /* Menor tamaño de fuente para hacerla más delgada */
+  color: #ffffff;
   display: flex;
   align-items: center;
 }
 
 .navbar-brand i {
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* Íconos más pequeños para que no se vean tan pesados */
 }
 
 .brand-name {
-  margin-left: 0.3rem;
+  margin-left: 0.2rem;
 }
 
 .navbar-toggler {
@@ -30,29 +29,29 @@
 
 /* Links in navbar */
 .custom-link {
-  color: #495057;
+  color: #ffffff;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  padding: 0.4rem 0.8rem; /* Menor padding para hacerla más delgada */
+  border-radius: 4px;
   transition: color 0.3s, background-color 0.3s;
 }
 
 .custom-link:hover,
 .custom-link:focus {
   color: #ffffff;
-  background-color: #0056d6;
+  background-color: #e0d205;
   text-decoration: none;
 }
 
 /* Dropdown menu */
 .custom-dropdown {
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-item {
-  font-size: 0.9rem;
-  padding: 8px 16px;
+  font-size: 0.85rem;
+  padding: 6px 12px;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -65,77 +64,13 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Active and hover styles */
-.nav-item .active {
-  color: #0056d6 !important;
-  font-weight: 600;
-}
-
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;...");
-}
-
-/* Dropdown menu */
-.custom-dropdown {
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  /* Inicialmente oculto */
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(-10px);
-  /* Eleva el menú para un efecto suave */
-  pointer-events: none;
-  /* Desactiva eventos cuando está oculto */
-}
-
-/* Aparece el submenú al pasar el cursor */
-.nav-item:hover .custom-dropdown {
-  opacity: 1;
-  /* Hace el submenú visible */
-  transform: translateY(0);
-  /* Vuelve a la posición original */
-  pointer-events: auto;
-  /* Activa eventos */
-}
-.custom-dropdown {
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none; /* Prevent interaction when hidden */
-}
-
-.dropdown-menu.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto; /* Allow interaction when shown */
-}
-
-/* Dropdown item hover effects */
-.dropdown-item {
-  padding: 10px 20px;
-  color: #495057;
-}
-
-.dropdown-item:hover {
-  background-color: #e9ecef;
-  color: #0056d6;
-}
-
-/* Divider styling */
-.dropdown-divider {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 5px 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 576px) {
   .custom-link {
-    padding: 0.4rem 0.9rem;
+    padding: 0.3rem 0.7rem;
   }
 
   .navbar-brand {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 }

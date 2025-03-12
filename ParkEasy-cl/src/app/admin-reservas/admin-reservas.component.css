@@ -1,207 +1,92 @@
 /* reservation-list.component.css */
+body {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  font-family: 'Arial', sans-serif;
+}
+
 .container {
   max-width: 1200px;
-  /* Limitar el ancho del contenedor */
-  margin: 20px auto;
-  /* Centrar el contenedor */
-  padding: 20px;
-  /* Espaciado interno */
-  background-color: #ffffff;
-  /* Fondo blanco para mayor contraste */
-  border-radius: 10px;
-  /* Esquinas redondeadas */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  /* Sombra más suave */
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+h2 {
+  font-weight: bold;
+  color: #4facfe;
+  text-shadow: 2px 2px 8px rgba(79, 172, 254, 0.5);
+  margin-bottom: 20px;
+}
+
+.btn-primary, .btn-danger {
+  border-radius: 50px;
+  padding: 10px 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #00c6ff;
+  transform: scale(1.08);
+}
+
+.btn-danger:hover {
+  background-color: #ff6b6b;
+  transform: scale(1.08);
 }
 
 .table {
-  background-color: #f8f9fa;
-  margin-top: 20px;
-  border-radius: 8px;
-  /* Esquinas redondeadas para la tabla */
+  background-color: #ffffff;
+  border-radius: 12px;
   overflow: hidden;
-  /* Para mantener las esquinas redondeadas */
-  width: auto;
-  /* Ajustar ancho automático */
-  max-width: 100%;
-  /* Asegurar que no exceda el contenedor */
-  margin: 0 10px;
-  /* Espacio lateral para que no ocupe toda la pantalla */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.table th {
-  background-color: #007bff;
-  color: white;
+.table th, .table td {
+  text-align: center;
   padding: 15px;
-  /* Espaciado interno para los encabezados */
-  text-align: left;
-  /* Alinear texto a la izquierda */
+  border: 2px solid #e3f2fd;
 }
 
-.table td {
-  vertical-align: middle;
-  padding: 10px;
-  /* Espaciado interno para las celdas */
+.table-primary {
+  background-color: #4facfe;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.text-primary {
-  color: #007bff;
-}
-
-.text-warning {
-  color: #ffc107;
-}
-
-.text-danger {
-  color: #dc3545;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  opacity: 0.8;
-}
-
-.table tr:nth-child(even) {
-  background-color: #e9ecef;
-  /* Fondo gris claro para filas pares */
-}
-
-.table tr:hover {
-  background-color: #f1f1f1;
-  /* Color de fondo al pasar el mouse */
+.table-success {
+  background-color: #00f2fe;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .icon-hover {
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .icon-hover:hover {
-  color: #0056b3;
-  /* Un tono más oscuro para el efecto hover */
+  transform: scale(1.3);
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.4));
 }
 
 .modal-content {
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.5s ease-out;
 }
 
-.modal-header {
-  border-bottom: none;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.modal-footer {
-  border-top: none;
-}
-
-/* Espacios alrededor de los botones */
-.btn {
-  margin: 10px 0;
-  /* Espaciado vertical para los botones */
-}
-
-/* Ajuste para el contenedor de la tabla */
-.table-container {
-  margin-bottom: 40px;
-  /* Espacio entre las tablas */
-}
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .table {
-    margin: 0 5px;
-    /* Menos espacio lateral en móviles */
-  }
-
-  .container {
-    padding: 10px;
-    /* Menos espaciado interno en móviles */
-  }
-
-  .table th,
-  .table td {
-    padding: 8px;
-    /* Menos espaciado interno para celdas en móviles */
-    font-size: 14px;
-    /* Tamaño de fuente más pequeño en móviles */
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 5px;
-    /* Espaciado interno aún menor para pantallas pequeñas */
-  }
-
-  .table th,
-  .table td {
-    padding: 5px;
-    /* Aún menos espaciado en móviles pequeños */
-    font-size: 12px;
-    /* Tamaño de fuente más pequeño */
-  }
-
-  .btn {
-    margin: 5px 0;
-    /* Menos espacio vertical para los botones */
-  }
-}
-
-/* styles.css */
-.container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.table-container {
-  margin-bottom: 40px;
-}
-
-.table {
-  background-color: #f8f9fa;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.table th,
-.table td {
-  padding: 10px;
-}
-
-.table th {
-  background-color: #007bff;
-  color: white;
-  padding: 15px;
-}
-
-.table-responsive {
-  overflow-x: auto;
-}
-
-.icon-hover {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.icon-hover:hover {
-  color: #0056b3;
-}
-
-@media (max-width: 576px) {
-  .table {
-    font-size: 0.9rem;
-  }
-
-  .table th,
-  .table td {
-    padding: 8px;
-  }
+@keyframes slideIn {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

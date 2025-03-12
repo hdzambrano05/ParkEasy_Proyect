@@ -34,23 +34,33 @@
     <!-- Vista de Tarjetas -->
     <div *ngIf="!isListView" class="row mt-4">
         <div class="col-md-4 mb-4" *ngFor="let user of filteredUsers">
-            <div class="card shadow-sm rounded hover-shadow border-info">
+            <div class="card shadow-sm rounded-3 border-0 hover-card">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">{{ user.username }}</h5>
-                    <p class="card-text">
+                    <h5 class="card-title text-white py-2 rounded text-center" [ngClass]="{
+                            'bg-primary': user.role_id === 1,
+                            'bg-secondary': user.role_id === 2,
+                            'bg-dark': user.role_id !== 1 && user.role_id !== 2
+                        }">
+                        {{ user.username }}
+                    </h5>
+                    <p class="card-text text-muted">
                         <strong>Nombre Completo:</strong> {{ user.full_name }} <br>
                         <strong>Email:</strong> {{ user.email }} <br>
-                        <strong>Rol:</strong> {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario'
-                        : 'Desconocido') }} <br>
+                        <strong>Rol:</strong>
+                        <span [class.text-primary]="user.role_id === 1" [class.text-secondary]="user.role_id === 2"
+                            [class.text-dark]="user.role_id !== 1 && user.role_id !== 2">
+                            {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario' : 'Desconocido')
+                            }}
+                        </span> <br>
                         <strong>Fecha de Creación:</strong> {{ user.created_at | date: 'dd/MM/yyyy' }}
                     </p>
-                    <div class="d-flex justify-content-between mt-3">
-                        <button class="btn btn-warning" (click)="editUser(user)" data-bs-toggle="modal"
+                    <div class="d-flex justify-content-around mt-3">
+                        <button class="btn btn-outline-primary btn-sm" (click)="editUser(user)" data-bs-toggle="modal"
                             data-bs-target="#userModal">
-                            <i class="bi bi-pencil"></i>
+                            <i class="bi bi-pencil"></i> Editar
                         </button>
-                        <button class="btn btn-danger" (click)="deleteUser(user.user_id)">
-                            <i class="bi bi-trash"></i>
+                        <button class="btn btn-outline-danger btn-sm" (click)="deleteUser(user.user_id)">
+                            <i class="bi bi-trash"></i> Eliminar
                         </button>
                     </div>
                 </div>
@@ -58,31 +68,35 @@
         </div>
     </div>
 
+
     <!-- Vista de Lista -->
     <div *ngIf="isListView" class="list-group mt-4">
-        <div class="list-group-item d-flex justify-content-between align-items-center hover-list-item"
+        <div class="list-group-item d-flex justify-content-between align-items-center hover-list-item shadow-sm rounded-3 border-0"
             *ngFor="let user of filteredUsers">
             <div>
-                <h5 class="mb-1">{{ user.username }}</h5>
-                <p class="mb-1">
+                <h5 class="mb-1 text-primary">{{ user.username }}</h5>
+                <p class="mb-1 text-muted">
                     <strong>Nombre Completo:</strong> {{ user.full_name }} <br>
                     <strong>Email:</strong> {{ user.email }} <br>
-                    <strong>Rol:</strong> {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario' :
-                    'Desconocido') }} <br>
+                    <strong>Rol:</strong>
+                    <span [class.text-success]="user.role_id === 1" [class.text-info]="user.role_id === 2">
+                        {{ user.role_id === 1 ? 'Administrador' : (user.role_id === 2 ? 'Usuario' : 'Desconocido') }}
+                    </span> <br>
                     <strong>Fecha de Creación:</strong> {{ user.created_at | date: 'dd/MM/yyyy' }}
                 </p>
             </div>
-            <div>
-                <button class="btn btn-link text-warning" (click)="editUser(user)" data-bs-toggle="modal"
-                    data-bs-target="#userModal">
-                    <i class="bi bi-pencil"></i>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-warning rounded-circle btn-icon" (click)="editUser(user)"
+                    data-bs-toggle="modal" data-bs-target="#userModal">
+                    <i class="bi bi-pencil-fill"></i>
                 </button>
-                <button class="btn btn-link text-danger" (click)="deleteUser(user.user_id)">
-                    <i class="bi bi-trash"></i>
+                <button class="btn btn-outline-danger rounded-circle btn-icon" (click)="deleteUser(user.user_id)">
+                    <i class="bi bi-trash-fill"></i>
                 </button>
             </div>
         </div>
     </div>
+
 
     <!-- Modal para el Formulario de Usuario -->
     <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
@@ -191,4 +205,63 @@
     .btn-danger:hover {
         transform: translateY(-2px);
     }
+
+    .hover-list-item {
+        transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    .hover-list-item:hover {
+        background-color: #f0f9ff;
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .btn-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .text-primary {
+        font-weight: 600;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+
+    .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.text-muted {
+    font-size: 0.9rem;
+}
+
 </style>
